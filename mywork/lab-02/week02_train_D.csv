@@ -1,0 +1,6 @@
+N	53.3531	-6.24591	D906	09 Feb 2025	D906\nDublin Connolly to Maynooth\nExpected Departure 11:47	Northbound
+R	53.163	-6.90802	D201	09 Feb 2025	D201\n10:50 - Dublin Heuston to Portlaoise (0 mins late)\nDeparted Kildare next stop Monasterevin	To Portlaoise
+R	53.3776	-6.39072	D905	09 Feb 2025	D905\n11:17 - Dublin Connolly to Maynooth (0 mins late)\nArrived Coolmine next stop Clonsilla	Northbound
+R	53.4855	-6.15134	D804	09 Feb 2025	D804\n11:10 - Dublin Connolly to Drogheda (-1 mins late)\nArrived Donabate next stop Rush and Lusk	Northbound
+T	53.378	-6.58993	D904	09 Feb 2025	D904\n10:50 - Dublin Connolly to Maynooth(0 mins late)\nTERMINATED Maynooth at 11:33	Northbound
+T	53.4349	-6.46898	D372	09 Feb 2025	D372\n11:21 - Clonsilla to M3 Parkway(-1 mins late)\nTERMINATED M3 Parkway at 11:31	Northbound
