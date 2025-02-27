@@ -1,18 +1,50 @@
-{
-    "name": "lab-04.json",
-    "path": "mywork/lab-04/lab-04.json",
-    "sha": "2783d984ed2f9a46782b5e2a8575d9621a6cd6e6",
-    "size": 2255,
-    "url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-04/lab-04.json?ref=main",
-    "html_url": "https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/mywork/lab-04/lab-04.json",
-    "git_url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/blobs/2783d984ed2f9a46782b5e2a8575d9621a6cd6e6",
-    "download_url": "https://raw.githubusercontent.com/FatimaBOliveira/WSAA-coursework/main/mywork/lab-04/lab-04.json",
-    "type": "file",
-    "content": "Ww0KICAgIHsNCiAgICAgICAgIm5hbWUiOiAiYXZnLXByaWNlLWJvb2tzLnB5\nIiwNCiAgICAgICAgInBhdGgiOiAibXl3b3JrL2xhYi0wNC9hdmctcHJpY2Ut\nYm9va3MucHkiLA0KICAgICAgICAic2hhIjogIjVmNmQzOGEyNTk5OWM2YWVl\nM2I3ZjQ3MmRiZGEyMjM0ZTYyMTg0MTIiLA0KICAgICAgICAic2l6ZSI6IDIx\nMiwNCiAgICAgICAgInVybCI6ICJodHRwczovL2FwaS5naXRodWIuY29tL3Jl\ncG9zL0ZhdGltYUJPbGl2ZWlyYS9XU0FBLWNvdXJzZXdvcmsvY29udGVudHMv\nbXl3b3JrL2xhYi0wNC9hdmctcHJpY2UtYm9va3MucHk/cmVmPW1haW4iLA0K\nICAgICAgICAiaHRtbF91cmwiOiAiaHR0cHM6Ly9naXRodWIuY29tL0ZhdGlt\nYUJPbGl2ZWlyYS9XU0FBLWNvdXJzZXdvcmsvYmxvYi9tYWluL215d29yay9s\nYWItMDQvYXZnLXByaWNlLWJvb2tzLnB5IiwNCiAgICAgICAgImdpdF91cmwi\nOiAiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBvcy9GYXRpbWFCT2xpdmVp\ncmEvV1NBQS1jb3Vyc2V3b3JrL2dpdC9ibG9icy81ZjZkMzhhMjU5OTljNmFl\nZTNiN2Y0NzJkYmRhMjIzNGU2MjE4NDEyIiwNCiAgICAgICAgImRvd25sb2Fk\nX3VybCI6ICJodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vRmF0\naW1hQk9saXZlaXJhL1dTQUEtY291cnNld29yay9tYWluL215d29yay9sYWIt\nMDQvYXZnLXByaWNlLWJvb2tzLnB5IiwNCiAgICAgICAgInR5cGUiOiAiZmls\nZSIsDQogICAgICAgICJfbGlua3MiOiB7DQogICAgICAgICAgICAic2VsZiI6\nICJodHRwczovL2FwaS5naXRodWIuY29tL3JlcG9zL0ZhdGltYUJPbGl2ZWly\nYS9XU0FBLWNvdXJzZXdvcmsvY29udGVudHMvbXl3b3JrL2xhYi0wNC9hdmct\ncHJpY2UtYm9va3MucHk/cmVmPW1haW4iLA0KICAgICAgICAgICAgImdpdCI6\nICJodHRwczovL2FwaS5naXRodWIuY29tL3JlcG9zL0ZhdGltYUJPbGl2ZWly\nYS9XU0FBLWNvdXJzZXdvcmsvZ2l0L2Jsb2JzLzVmNmQzOGEyNTk5OWM2YWVl\nM2I3ZjQ3MmRiZGEyMjM0ZTYyMTg0MTIiLA0KICAgICAgICAgICAgImh0bWwi\nOiAiaHR0cHM6Ly9naXRodWIuY29tL0ZhdGltYUJPbGl2ZWlyYS9XU0FBLWNv\ndXJzZXdvcmsvYmxvYi9tYWluL215d29yay9sYWItMDQvYXZnLXByaWNlLWJv\nb2tzLnB5Ig0KICAgICAgICB9DQogICAgfSwNCiAgICB7DQogICAgICAgICJu\nYW1lIjogImJvb2tzZGFvLnB5IiwNCiAgICAgICAgInBhdGgiOiAibXl3b3Jr\nL2xhYi0wNC9ib29rc2Rhby5weSIsDQogICAgICAgICJzaGEiOiAiZWNlMTMz\nNzk3ZDQ3NjkxNTczZDI0NDllMTFiY2I4MTU5NWEwOTg1YyIsDQogICAgICAg\nICJzaXplIjogMTA5NCwNCiAgICAgICAgInVybCI6ICJodHRwczovL2FwaS5n\naXRodWIuY29tL3JlcG9zL0ZhdGltYUJPbGl2ZWlyYS9XU0FBLWNvdXJzZXdv\ncmsvY29udGVudHMvbXl3b3JrL2xhYi0wNC9ib29rc2Rhby5weT9yZWY9bWFp\nbiIsDQogICAgICAgICJodG1sX3VybCI6ICJodHRwczovL2dpdGh1Yi5jb20v\nRmF0aW1hQk9saXZlaXJhL1dTQUEtY291cnNld29yay9ibG9iL21haW4vbXl3\nb3JrL2xhYi0wNC9ib29rc2Rhby5weSIsDQogICAgICAgICJnaXRfdXJsIjog\nImh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vcmVwb3MvRmF0aW1hQk9saXZlaXJh\nL1dTQUEtY291cnNld29yay9naXQvYmxvYnMvZWNlMTMzNzk3ZDQ3NjkxNTcz\nZDI0NDllMTFiY2I4MTU5NWEwOTg1YyIsDQogICAgICAgICJkb3dubG9hZF91\ncmwiOiAiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL0ZhdGlt\nYUJPbGl2ZWlyYS9XU0FBLWNvdXJzZXdvcmsvbWFpbi9teXdvcmsvbGFiLTA0\nL2Jvb2tzZGFvLnB5IiwNCiAgICAgICAgInR5cGUiOiAiZmlsZSIsDQogICAg\nICAgICJfbGlua3MiOiB7DQogICAgICAgICAgICAic2VsZiI6ICJodHRwczov\nL2FwaS5naXRodWIuY29tL3JlcG9zL0ZhdGltYUJPbGl2ZWlyYS9XU0FBLWNv\ndXJzZXdvcmsvY29udGVudHMvbXl3b3JrL2xhYi0wNC9ib29rc2Rhby5weT9y\nZWY9bWFpbiIsDQogICAgICAgICAgICAiZ2l0IjogImh0dHBzOi8vYXBpLmdp\ndGh1Yi5jb20vcmVwb3MvRmF0aW1hQk9saXZlaXJhL1dTQUEtY291cnNld29y\nay9naXQvYmxvYnMvZWNlMTMzNzk3ZDQ3NjkxNTczZDI0NDllMTFiY2I4MTU5\nNWEwOTg1YyIsDQogICAgICAgICAgICAiaHRtbCI6ICJodHRwczovL2dpdGh1\nYi5jb20vRmF0aW1hQk9saXZlaXJhL1dTQUEtY291cnNld29yay9ibG9iL21h\naW4vbXl3b3JrL2xhYi0wNC9ib29rc2Rhby5weSINCiAgICAgICAgfQ0KICAg\nIH0NCl0=\n",
-    "encoding": "base64",
-    "_links": {
-        "self": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-04/lab-04.json?ref=main",
-        "git": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/blobs/2783d984ed2f9a46782b5e2a8575d9621a6cd6e6",
-        "html": "https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/mywork/lab-04/lab-04.json"
+[
+    {
+        "name": "avg-price-books.py",
+        "path": "mywork/lab-04/avg-price-books.py",
+        "sha": "5f6d38a25999c6aee3b7f472dbda2234e6218412",
+        "size": 212,
+        "url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-04/avg-price-books.py?ref=main",
+        "html_url": "https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/mywork/lab-04/avg-price-books.py",
+        "git_url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/blobs/5f6d38a25999c6aee3b7f472dbda2234e6218412",
+        "download_url": "https://raw.githubusercontent.com/FatimaBOliveira/WSAA-coursework/main/mywork/lab-04/avg-price-books.py",
+        "type": "file",
+        "_links": {
+            "self": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-04/avg-price-books.py?ref=main",
+            "git": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/blobs/5f6d38a25999c6aee3b7f472dbda2234e6218412",
+            "html": "https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/mywork/lab-04/avg-price-books.py"
+        }
+    },
+    {
+        "name": "booksdao.py",
+        "path": "mywork/lab-04/booksdao.py",
+        "sha": "ece133797d47691573d2449e11bcb81595a0985c",
+        "size": 1094,
+        "url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-04/booksdao.py?ref=main",
+        "html_url": "https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/mywork/lab-04/booksdao.py",
+        "git_url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/blobs/ece133797d47691573d2449e11bcb81595a0985c",
+        "download_url": "https://raw.githubusercontent.com/FatimaBOliveira/WSAA-coursework/main/mywork/lab-04/booksdao.py",
+        "type": "file",
+        "_links": {
+            "self": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-04/booksdao.py?ref=main",
+            "git": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/blobs/ece133797d47691573d2449e11bcb81595a0985c",
+            "html": "https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/mywork/lab-04/booksdao.py"
+        }
+    },
+    {
+        "name": "lab-04.json",
+        "path": "mywork/lab-04/lab-04.json",
+        "sha": "50cd9462f9ca371c7e0b79a84ac816ca0713451f",
+        "size": 4175,
+        "url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-04/lab-04.json?ref=main",
+        "html_url": "https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/mywork/lab-04/lab-04.json",
+        "git_url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/blobs/50cd9462f9ca371c7e0b79a84ac816ca0713451f",
+        "download_url": "https://raw.githubusercontent.com/FatimaBOliveira/WSAA-coursework/main/mywork/lab-04/lab-04.json",
+        "type": "file",
+        "_links": {
+            "self": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-04/lab-04.json?ref=main",
+            "git": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/blobs/50cd9462f9ca371c7e0b79a84ac816ca0713451f",
+            "html": "https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/mywork/lab-04/lab-04.json"
+        }
     }
-}
+]
