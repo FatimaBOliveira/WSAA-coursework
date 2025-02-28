@@ -1,0 +1,66 @@
+[
+    {
+        "name": "lab-01",
+        "path": "mywork/lab-01",
+        "sha": "431680c8a79d066d1af037363bbe26553bf0987c",
+        "size": 0,
+        "url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-01?ref=main",
+        "html_url": "https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/mywork/lab-01",
+        "git_url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/trees/431680c8a79d066d1af037363bbe26553bf0987c",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+            "self": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-01?ref=main",
+            "git": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/trees/431680c8a79d066d1af037363bbe26553bf0987c",
+            "html": "https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/mywork/lab-01"
+        }
+    },
+    {
+        "name": "lab-02",
+        "path": "mywork/lab-02",
+        "sha": "ca742a46028f5d17ba3549d13f61c4633ee6c440",
+        "size": 0,
+        "url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-02?ref=main",
+        "html_url": "https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/mywork/lab-02",
+        "git_url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/trees/ca742a46028f5d17ba3549d13f61c4633ee6c440",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+            "self": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-02?ref=main",
+            "git": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/trees/ca742a46028f5d17ba3549d13f61c4633ee6c440",
+            "html": "https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/mywork/lab-02"
+        }
+    },
+    {
+        "name": "lab-03",
+        "path": "mywork/lab-03",
+        "sha": "c13bd37627285adf30fd5ad630defb1ce14575d7",
+        "size": 0,
+        "url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-03?ref=main",
+        "html_url": "https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/mywork/lab-03",
+        "git_url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/trees/c13bd37627285adf30fd5ad630defb1ce14575d7",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+            "self": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-03?ref=main",
+            "git": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/trees/c13bd37627285adf30fd5ad630defb1ce14575d7",
+            "html": "https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/mywork/lab-03"
+        }
+    },
+    {
+        "name": "lab-04",
+        "path": "mywork/lab-04",
+        "sha": "9f3f698451bc58def1c3d6417e132c9243eae0e1",
+        "size": 0,
+        "url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-04?ref=main",
+        "html_url": "https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/mywork/lab-04",
+        "git_url": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/trees/9f3f698451bc58def1c3d6417e132c9243eae0e1",
+        "download_url": null,
+        "type": "dir",
+        "_links": {
+            "self": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/contents/mywork/lab-04?ref=main",
+            "git": "https://api.github.com/repos/FatimaBOliveira/WSAA-coursework/git/trees/9f3f698451bc58def1c3d6417e132c9243eae0e1",
+            "html": "https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/mywork/lab-04"
+        }
+    }
+]
