@@ -18,7 +18,7 @@ def getInfo():
 
 # Create a json file with the data
 def getAsFile():
-    with open("cso.json", "wt") as fp:
+    with open("./json/cso.json", "wt") as fp:
         print(json.dumps(getInfo()), file=fp)
 
 # Run script

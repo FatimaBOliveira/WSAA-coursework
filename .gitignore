@@ -280,3 +280,7 @@ Temporary Items
 *.vsix
 
 config.py
+aDAO.py
+aviewer.html
+dbconfig.py
+server.py

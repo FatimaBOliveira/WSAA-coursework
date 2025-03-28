@@ -2,6 +2,7 @@
 # The program will then commit those changes and push it back to the repository.
 # Author: Fatima Oliveira
 
+# Import libraries
 from github import Github
 import requests
 import json
@@ -44,7 +45,7 @@ def create_or_read():
 
     # Check if the file exists in the repository.
     try:
-        fileInfo = repo.get_contents(path="assignments/assignment4_book.json")
+        fileInfo = repo.get_contents(path="assignments/json/assignment4_book.json")
         urlFile = fileInfo.download_url
         # Print the contents of the file
         response = requests.get(urlFile)
@@ -53,7 +54,7 @@ def create_or_read():
     
     # Create a file if it doesn't exist. It will be automatically committed and pushed to the repository.
     except: 
-        create_file = repo.create_file(path ="assignments/assignment4_book.json", 
+        create_file = repo.create_file(path ="assignments/json/assignment4_book.json", 
                                        message = "Create new file: assignment4_book.json", content = updated_content)
 
 # Run function
