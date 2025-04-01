@@ -51,89 +51,46 @@ Email: g00438857@atu.ie or Fatima.21.00@hotmail.com
 
 ### The card draw: [assignment2-carddraw.py](https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/assignments/assignment2-carddraw.py)
 This program uses an API that simulates a draw of a deck of cards. It shuffles and picks 5 cards. Then, it indicates the value and suit of each card and if there's any good combination. 
-For this assignment, I imported the requests and json libraries, then I created a variable that is the link to the API that generates a deck of cards, then I used requests.get to shuffle the deck and store it in response. Then I get the response in JSON with .json. Then I get the deck_id to use the same deck of cards for the next step. The second URL used represents a draw of 5 cards of this deck.
+For this assignment, I imported the [requests](https://pypi.org/project/requests/) and [json](https://www.w3schools.com/python/python_json.asp) libraries, then I created a variable that is the link to the API that generates a deck of cards, then I used [requests.get](https://www.w3schools.com/python/ref_requests_get.asp) to shuffle the deck and store it in response. After, I got the response in JSON with [.json](https://stackoverflow.com/a/16877561). Later, I got the deck_id to use the same deck of cards for the next step. 
 
+The second URL used represents a draw of 5 cards of this deck. Then, I actively got the cards with requests.get, store them in JSON, and [identify the cards](https://realpython.com/python-for-loop/#sequences-lists-tuples-strings-and-ranges). For each card, I print the value and suit. 
 
-https://pypi.org/project/requests/
-https://www.w3schools.com/python/python_json.asp
-https://www.w3schools.com/python/ref_requests_get.asp
-https://stackoverflow.com/a/16877561
+In the next step, I analysed the combinations with the function check_hand(cards). I identified the attributes for each card, with the values, suit and value_card. With [enumerate](https://realpython.com/python-enumerate/#using-pythons-enumerate), the values of the cards are connected with the value_card and create a sequence. In this hand of cards the following combinations are possible:
 
+- Pair and/or Triple: I started checking for pairs and triples, and this can only be if the value of the card is the one right after it. If there are 2 or 3 cards with the value/key in sequence, then there's a pair or triple. I used [.append](https://www.w3schools.com/python/ref_list_append.asp) to signalize this and print the results to the user.
 
-Then I actively get the cards with resquest.get, store them in JSON, and identify the cards. For each card, I print the value and suit. Then the function check_hand(cards), I identify the attributes for each card, with the values, suit and value_card. With enumerate, the values of the cards are connected with the value_card and create a sequence. Then I can start checking for pairs and triples, and this can only be if the value of the card is the one right after it. If there are 2 or 3 cards with the value/key in sequence, then there's a pair or and I use .append to signalize this and print the results to the user. Then to check for straight, all the cards need to be in sequence. The sorted function will change the order of the values from the lowest to the highest. Then, the while function checks if there's a sequence in the values of the cards, for example, [2,3,4,5,6] is a straight. Finally, for the flush, all the cards must have the same suit, so I used a for function, very similar to the one that checks pairs and triples. If all the 5 cards are the same suit, then the len of the suit_counts will be equal to 1 because there's only 1 type of suit that is present on the cards. At the end of the function check_hand(cards), I return the results, after analysing if any of these conditions are found in the cards, if there's a pair, triple, straight or flush, the print function will be activated. 
+- Straight: To check for straight, all the cards' values need to be in sequence. The [sorted function](https://www.w3schools.com/python/ref_func_sorted.asp) will change the order of the values from the lowest to the highest. Then, the [while function](https://www.geeksforgeeks.org/python-while-else/) checks if there's a sequence in the values of the cards, for example, [2,3,4,5,6] is a straight.
 
-Finally, all the final results are printed to the user, the pair and triple are returned as a list with the numbers found and the straight and the flush will show as a boolean, true or false.
+- Flush: Finally, for the flush, all the cards must have the same suit, so I used a for function, very similar to the one that checks pairs and triples. If all the 5 cards are the same suit, then the [len](https://realpython.com/len-python-function/
+) of the suit_counts will be equal to 1 because there's only 1 type of suit that is present on the cards. 
 
+Finally, the results of the function check_hand(cards) are returned, after analysing if any of these conditions are found in the cards. If there's a pair, triple, straight or flush, the print function will be activated individually for each.
 
-https://realpython.com/python-for-loop/#sequences-lists-tuples-strings-and-ranges
-https://realpython.com/python-enumerate/#using-pythons-enumerate
-https://www.w3schools.com/python/ref_list_append.asp
-
-https://www.geeksforgeeks.org/python-while-else/
-https://www.w3schools.com/python/ref_func_sorted.asp
-https://realpython.com/len-python-function/
+At the end, the final results are printed to the user, the pair and triple are returned as a list of the matching numbers, and the straight and the flush show as a boolean, true or false.
 
 ### The CSO: [assignment03-cso.py](https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/assignments/assignment03-cso.py)
 
-In this assignment, the Exchequer Account (Historical Series) dataset from CSO is loaded and saved into a JSON file.
+In this assignment, the ["Exchequer Account (Historical Series)"](https://data.cso.ie/table/FIQ02) dataset from CSO is loaded and saved into a JSON file.
 
-The libraries used are the same as in the previous task, requests and json. The URL used is the link to the data in a RESTFul API provided by CSO. Then I created 2 functions:
+The libraries used are the same as in the previous task, requests and json. The URL used is the link to the data in a [RESTFul API](https://aws.amazon.com/what-is/restful-api/#seo-faq-pairs#what-is-restful-api) provided by CSO. Then I created 2 functions:
 
-- getInfo(), loads the data and gets the JSON response into a Python dictionary;
+- getInfo(), loads the data and gets the JSON [response](https://pynative.com/parse-json-response-using-python-requests-library/) into a Python dictionary;
 
-- and getAsFile(), creates a file inside the subdirectory json and with the name cso.json. Then json.dumps converts a Python dictionary into a JSON-formatted string.
+- and getAsFile(), [creates a file](https://note.nkmk.me/en/python-file-io-open-with/#:~:text=To%20open%20a%20file%20for%20writing%2C%20set%20the%20mode%20argument,in%20an%20error%20(%20FileNotFoundError%20)
+) inside the subdirectory json and with the name cso.json. Then [json.dumps](https://realpython.com/python-json/#convert-python-dictionaries-to-json) converts a Python dictionary into a JSON-formatted string.
 
-At the end, the statement if name == "__main__" is used as a script that determines how the program runs. The function getAsFile() is called, after that, it automatically runs the other function getInfo(), as it depends on it. The file cso.json can be found here as expected.
-
-
-https://data.cso.ie/table/FIQ02
-https://aws.amazon.com/what-is/restful-api/#seo-faq-pairs#what-is-restful-api
-https://pynative.com/parse-json-response-using-python-requests-library/
-https://www.w3schools.com/python/ref_requests_response.asp
-https://note.nkmk.me/en/python-file-io-open-with/#:~:text=To%20open%20a%20file%20for%20writing%2C%20set%20the%20mode%20argument,in%20an%20error%20(%20FileNotFoundError%20)
-
-https://realpython.com/python-json/#convert-python-dictionaries-to-json
-
-"https://www.datacamp.com/tutorial/if-name-equals-main-python#best-practices-and-tips-when-using-python's-if-__name__-==-%22__main__%22-%3Cspan"
+At the end, the statement [if name == "__main__"]("https://www.datacamp.com/tutorial/if-name-equals-main-python#best-practices-and-tips-when-using-python's-if-__name__-==-%22__main__%22-%3Cspan") is used as a script that determines how the program runs. The function getAsFile() is called, after that, it automatically runs the other function getInfo(), as it depends on it. The file cso.json can be found [here](https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/assignments/json/cso.json) as expected.
 
 ### The GitHub: [assignment04-github.py](https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/assignments/assignment04-github.py)
 
-In this assignment, I used a file from Professor Andrew Beatty repository in GitHub, changed this file, committed and pushed it to my repository. The libraries used are again requests and json, and also Github. Then I imported the key from a config file that I created and hid it, to protect my account from others, so they can't manipulate my account. This key permits this program to commit and push the changes back to my repository.
+In this assignment, I used a file from Professor Andrew Beatty [repository in GitHub]((https://github.com/andrewbeattycourseware/WSAA-Courseware/blob/main/code/Topic-01-introduction%20-%20Copy/book.json)), changed this file, committed and pushed it to my repository. The libraries used are again requests and json, and also [Github](https://pygithub.readthedocs.io/en/latest/introduction.html). Then I imported the key from a config file that I created and hid it, to protect my account from others, so they can't manipulate my account. This key permits this program to commit and push the changes back to my repository.
 
+I used the URL of the [raw version](https://raw.githubusercontent.com/andrewbeattycourseware/WSAA-Courseware/main/code/Topic-01-introduction%20-%20Copy/book.json) of the JSON file from the Professor's repository. Then I loaded the file with request.get, got the contents in text with [.text](https://realpython.com/python-requests/#content) and loaded it as a python object with [json.loads](https://docs.python.org/3/library/json.html#json.loads). Then, I created a function that checks this file, the [.replace](https://www.w3schools.com/python/ref_string_replace.asp) takes a string from the original file and replaces it with the new string. I changed "Andrew Beatty" to "Fatima Oliveira". With [json.dumps](https://docs.python.org/3/library/json.html#json.dumps), the Python object is converted back as a JSON string. After that, I applied those changes to updated_content.
 
-https://pygithub.readthedocs.io/en/latest/introduction.html
+Now, for the program to log in to my GitHub, I needed to generate the key, as explained by [GitHub Docs](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token). After that, I indicated the path to my key in the config file, then I used [Github(apikey)](https://pypi.org/project/PyGithub/) to indicate that this key is to get into my account. To finalize it, I use [.get_repo](https://pygithub.readthedocs.io/en/latest/examples/Repository.html) with the path to my repository that I want to [create the file in](https://pygithub.readthedocs.io/en/latest/examples/Repository.html#create-a-new-file-in-the-repository).
 
+I created a new function, create_or_read(), that indicates to the machine to check if the file already exists in the `try` section, with [get_contents](https://pygithub.readthedocs.io/en/latest/examples/Repository.html#get-a-specific-content-file). Then, I indicated the [URL of this file](https://github.com/PyGithub/PyGithub/issues/1343#issuecomment-572907398) with the [fileInfo.download_url](https://pygithub.readthedocs.io/en/v1.58.0/github_objects/ContentFile.html#github.ContentFile.ContentFile.download_url). Then, I got the response and turned it into text and print the contents. If the file doesn't exist, then the section `except` runs and [.create_file](https://pygithub.readthedocs.io/en/stable/github_objects/Repository.html#github.Repository.Repository.create_file) indicates the path for the file and the message to be committed in GitHub, with the content being the updated_content as defined above.
 
-I use the URL of the raw version of the JSON file from here. Then I load the file with request.get, get the contents in text with .text and load it as JSON with json.loads. Then, I created a function that checks this file, and with json.dumps, JSON is considered as a string, and .replace takes a string from the original file and replaces it with the new string. I changed "Andrew Beatty" to "Fatima Oliveira". Then I applied those changes with updated_content.
-
-
-https://realpython.com/python-requests/#content
-https://github.com/andrewbeattycourseware/WSAA-Courseware/blob/main/code/Topic-01-introduction%20-%20Copy/book.json
-https://www.w3schools.com/python/python_json.asp
-https://docs.python.org/3/library/json.html#json.loads
-https://docs.python.org/3/library/json.html#json.dumps
-
-
-Now, for the program to log in to my GitHub, I needed to generate the key, as explained in the GitHub Docs. After that, I indicated the path for my key in the config file, then I used Github(apikey) to indicate that this key is to get into my account. To finalize it, I use .get_repo with the path to my repository that I want to create the file in.
-
-
-https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token
-https://pygithub.readthedocs.io/en/latest/examples/Repository.html
- https://pygithub.readthedocs.io/en/stable/github_objects/Repository.html#github.Repository.Repository.create_file
-
-
-I created a new function, create_or_read(), that indicates to the machine for checking if the file already exists, with get_contents. Then, I indicate the URL of this file with the fileInfo.download_url. Then I can get the response and turn it into text and print the contents. If the file doesn't exist, then the section except runs and .create_file indicates the path for the file and the message to be committed in GitHub, with the content being the updated_content as defined above.
-Again, I define the main function of this script with the if statement. 
-
-https://pygithub.readthedocs.io/en/latest/examples/Repository.html#get-a-specific-content-file
-https://github.com/PyGithub/PyGithub/issues/1343#issuecomment-572907398
-
-https://pygithub.readthedocs.io/en/v1.58.0/github_objects/ContentFile.html#github.ContentFile.ContentFile.download_url
-
-https://pygithub.readthedocs.io/en/latest/examples/Repository.html#create-a-new-file-in-the-repository
-
-
-https://pygithub.readthedocs.io/en/stable/github_objects/Repository.html#github.Repository.Repository.create_file
-
+Again, I defined the main function of this script with the if statement, and one of the sections of create_or_read() `try` or `except` will run.
 ***
 ## END

@@ -1,6 +1,7 @@
 # GitHub
 # Program that reads a file from a repository and replaces the text "Andrew" with my name.
 # The program will then commit those changes and push them back to the repository.
+# For a detailed walkthrough, please check the README file in: https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/assignments#the-github-assignment04-githubpy
 # Author: Fatima Oliveira
 
 # Import libraries
@@ -36,12 +37,10 @@ apikey = cfg["apikeywsaa"]
 g = Github(apikey)
 
 # Get repo.
-# https://pygithub.readthedocs.io/en/latest/examples/Repository.html
 repo = g.get_repo("FatimaBOliveira/WSAA-coursework")
 #print(repo)
 
 # A function that creates or reads the modified file in my repository.
-# https://pygithub.readthedocs.io/en/stable/github_objects/Repository.html#github.Repository.Repository.create_file
 def create_or_read():
 
     # Check if the file exists in the repository.

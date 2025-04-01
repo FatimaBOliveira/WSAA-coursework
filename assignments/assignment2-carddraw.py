@@ -2,6 +2,7 @@
 # This program will use an API that simulates a draw of a deck of cards.
 # First, it shuffles, then it picks 5 cards, indicating the value and suit of each card.
 # It also indicates if there's any combination: pair, triple, straight or flush.
+# For a detailed walkthrough, please check the README file in: https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/assignments#the-card-draw-assignment2-carddrawpy
 # Author: Fatima Oliveira
 
 # Import libraries.
@@ -55,7 +56,6 @@ def check_hand(cards):
               "5": 5, "4": 4, "3": 3, "2": 2}
     
     # Sequence of values.
-    # https://realpython.com/python-enumerate/#using-pythons-enumerate
     for count, value in enumerate(values):
         if value in value_card:
             values[count] = value_card[value]
@@ -82,8 +82,6 @@ def check_hand(cards):
             print("Very good, you have a triple.")
     
     # Check for straight.
-    # https://www.geeksforgeeks.org/python-while-else/
-    # https://www.w3schools.com/python/ref_func_sorted.asp
     values = sorted(values)
     count = 0
     while count < len(values) - 1:

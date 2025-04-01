@@ -1,7 +1,8 @@
 # CSO
-# This program loads the dataset for the "exchequer account (historical series)" from a RESTFul API of CSO. 
+# This program loads the dataset for the "Exchequer Account (Historical Series)" from a RESTFul API of CSO. 
 # It also stores the data into a file called "cso.json".
-# https://data.cso.ie/table/FIQ02
+# "Exchequer Account (Historical Series)" dataset can be found here: https://data.cso.ie/table/FIQ02
+# For a detailed walkthrough, please check the README file in: https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/assignments#the-cso-assignment03-csopy
 # Author: Fatima Oliveira
 
 # Import libraries.
