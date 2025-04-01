@@ -1,6 +1,7 @@
 # Draw cards
 # This program will use an API that simulates a draw of a deck of cards.
-# First, it shuffles, then it picks 5 cards indicating the value and suit of each card.
+# First, it shuffles, then it picks 5 cards, indicating the value and suit of each card.
+# It also indicates if there's any combination: pair, triple, straight or flush.
 # Author: Fatima Oliveira
 
 # Import libraries.
@@ -13,7 +14,7 @@ url = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
 # Shuffle the deck of cards.
 response = requests.get(url)
 
-# Get the result with json.
+# Get the response in JSON.
 #print(response.json())
 deck=response.json()
 
@@ -28,11 +29,11 @@ url_2 = f"https://deckofcardsapi.com/api/deck/{id}/draw/?count=5"
 response_2 = requests.get(url_2)
 
 # Get the results with json.
-deck_id=response_2.json()
-#print(deck_id)
+hand=response_2.json()
+#print(hand)
 
 # Cards picked.
-cards=deck_id["cards"]
+cards=hand["cards"]
 #print(cards)
 
 # Get the value and suit for each card.
@@ -120,7 +121,3 @@ result = check_hand(cards)
 
 # Print the results.
 print("Results:", result)
-
-
-# https://amethodtothemadness.com/part-4-playing-poker
-# https://akarshmallya.medium.com/poker-simulator-in-python-e027a88a3967
