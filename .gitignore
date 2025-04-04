@@ -280,9 +280,9 @@ Temporary Items
 *.vsix
 
 config.py
-aDAO.py
-aviewer.html
 dbconfig.py
-server.py
-1ajaxcalls.js
+
 check.ipynb
+
+aviewer.html
+1ajaxcalls.js
