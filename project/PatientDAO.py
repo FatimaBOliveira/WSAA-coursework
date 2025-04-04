@@ -77,7 +77,7 @@ class PatientDAO:
     def update(self, id, patient):
         cursor = self.getcursor()
         sql = "UPDATE patient SET name= %s, age=%s, type_of_treatment=%s WHERE id=%s"
-        print(f"update book {patient}")
+        print(f"Update patient {patient}")
         values = (patient.get("name"), patient.get("age"), patient.get("type_of_treatment"),id)
         cursor.execute(sql, values)
         self.connection.commit()

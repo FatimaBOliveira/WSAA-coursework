@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <title>test get all</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    </head>
+    <body>
+    <script>
+        function getAll(callback){
+            $.ajax({
+                "url": "http://127.0.0.1:5000/patient",
+                "method":"GET",
+                "data":"",
+                "dataType": "JSON",
+                "success":function(result){
+                    //console.log(result);
+                    callback(result)
+                },
+                "error":function(xhr,status,error){
+                    console.log("error: "+status+" msg:"+error);
+                }
+            });
+        }
+
+        function processGetAll(result){
+            console.log("in process")
+            console.log(result)
+        }
+        
+        getAll(processGetAll)
+        
+        function createpatient(patient, callback){
+            console.log(JSON.stringify(patient));
+            $.ajax({
+                "url": "http://127.0.0.1:5000/patient",
+                "method":"POST",
+                "data":JSON.stringify(patient),
+                "dataType": "JSON",
+                contentType: "application/json; charset=utf-8",
+                "success":function(result){
+                    //console.log(result);
+                    callback(result)
+                },
+                "error":function(xhr,status,error){
+                    console.log("error: "+status+" msg:"+error);
+                }   
+            });
+        }
+
+        function processCreateResponse(result){
+            console.log(result)
+        }
+
+        //patient = {"Id":"javascript","Name":"John","Age":88, "Type of treatment":"HDF"} 
+        //createpatient(patient,processCreateResponse)
+
+        function updatePatient(patient, callback){
+            //console.log(JSON.stringify(patient));
+            $.ajax({
+                "url": "http://127.0.0.1:5000/patient"+encodeURI(patient.id),
+                "method":"PUT",
+                "data":JSON.stringify(patient),
+                "dataType": "JSON",
+                contentType: "application/json; charset=utf-8",
+                "success":function(result){
+                    console.log(result);
+                    callback(result)
+                },
+                "error":function(xhr,status,error){
+                    console.log("error: "+status+" msg:"+error);
+                }
+            });
+        }
+            
+        function processUpdateResponse(result){
+            console.log(result)
+        }
+
+        patient = {id:1,"age":100}
+        //updatepatient(patient,processUpdateResponse) 
+
+        function deletepatient(id, callback){
+            $.ajax({
+                "url": "http://127.0.0.1:5000/patient"+id,
+                "method":"DELETE",
+                "data":"",
+                "dataType": "JSON",
+                contentType: "application/json; charset=utf-8",
+                "success":function(result){
+                    console.log(result);
+                    callback(result)
+                },
+                "error":function(xhr,status,error){
+                    console.log("error: "+status+" msg:"+error);
+                }
+            });
+        }
+
+        function processDeleteResponse(result){
+            console.log("in pprocess delete")
+            console.log(result)
+        }
+        //deletepatient(1,processUpdateResponse)
+
+        </script>
+    </body>
+</html>
