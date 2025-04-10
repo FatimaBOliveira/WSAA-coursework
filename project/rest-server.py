@@ -28,22 +28,29 @@ def findbyid(id):
 
 
 #create
-# curl -H "Content-Type: application/json" -X POST -d "{\"name\":\"Mary\", \"age\":66, \"type_of_treatment\":\"HD\"}" http://127.0.0.1:5000/patient
+# curl -H "Content-Type: application/json" -X POST -d "{\"id\":1,\"name\":\"Mary\", \"age\":66, \"type_of_treatment\":\"HD\"}" http://127.0.0.1:5000/patient
 @app.route('/patient', methods=['POST'])
 def create():
         # read json from the body
         jsonstring = request.json
         patient = {}
 
+        if "id" not in jsonstring:
+               abort(400)
+        patient["id"] = jsonstring["id"]
         if "name" not in jsonstring:
-                abort(403)
+                abort(400)
         patient["name"] = jsonstring["name"]
         if "age" not in jsonstring:
-                abort(403)
+                abort(400)
         patient["age"] = jsonstring["age"]
         if "type_of_treatment" not in jsonstring:
-                abort(403)
+                abort(400)
         patient["type_of_treatment"] = jsonstring["type_of_treatment"]
+
+        existing_patient = patientDAO.findByID(patient["id"])
+        if existing_patient:
+                abort(409, description="Patient with this ID already exists.")
         
         return jsonify(patientDAO.create(patient))
 
@@ -55,6 +62,12 @@ def update(id):
         jsonstring = request.json
         patient = {}
 
+        existing_patient = patientDAO.findByID(id)
+        if not existing_patient:
+            return jsonify({"error": f"Patient with ID {id} not found."}), 404
+        
+        #if "id" in jsonstring: # NOT NEEDED IN UPDATE
+        #        patient["id"] = jsonstring["id"]
         if "name" in jsonstring:
                 patient["name"] = jsonstring["name"]
         if "age" in jsonstring:

@@ -68,8 +68,8 @@ class PatientDAO:
         cursor.execute(sql, values)
 
         self.connection.commit()
-        newid = cursor.lastrowid
-        patient["id"] = newid
+        #newid = cursor.lastrowid
+        #patient["id"] = newid
         self.closeAll()
         return patient
 
@@ -101,12 +101,12 @@ class PatientDAO:
 
     def convertToDictionary(self, resultLine):
         attkeys = ["id", "name", "age", "type_of_treatment"]
-        book = {}
+        patient = {}
         currentkey = 0
         for attrib in resultLine:
-            book[attkeys[currentkey]] = attrib
+            patient[attkeys[currentkey]] = attrib
             currentkey = currentkey + 1 
-        return book
+        return patient
 
         
 patientDAO = PatientDAO()
