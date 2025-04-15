@@ -8,9 +8,9 @@ This README follows the the instructions from [Github](https://docs.github.com/e
 
 This repository contains 3 different subdirectories:
 
-- [Assignments](), that include my approach to the proposed practical assignments;
-- [Project](), with an online application (Web page) created with a RESTful API that allows any user to interact with it;
-- [My-work](), that includes work done regarding the labs.
+- [Assignments](https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/assignments), that include my approach to the proposed practical assignments;
+- [Project](https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/project), with an online application created with a RESTful API that allows any user to interact with it;
+- [My-work](https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/mywork), that includes work done regarding the labs.
 
 In this directory there's also a .gitignore and a requirements.txt as standard.
 

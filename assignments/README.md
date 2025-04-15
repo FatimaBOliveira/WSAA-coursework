@@ -50,47 +50,228 @@ Email: g00438857@atu.ie or Fatima.21.00@hotmail.com
 ## Walkthrough of the assignments:
 
 ### The card draw: [assignment2-carddraw.py](https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/assignments/assignment2-carddraw.py)
-This program uses an API that simulates a draw of a deck of cards. It shuffles and picks 5 cards. Then, it indicates the value and suit of each card and if there's any good combination. 
-For this assignment, I imported the [requests](https://pypi.org/project/requests/) and [json](https://www.w3schools.com/python/python_json.asp) libraries, then I created a variable that is the link to the API that generates a deck of cards, then I used [requests.get](https://www.w3schools.com/python/ref_requests_get.asp) to shuffle the deck and store it in response. After, I got the response in JSON with [.json](https://stackoverflow.com/a/16877561). Later, I got the deck_id to use the same deck of cards for the next step. 
+
+ This program uses an API that simulates drawing a deck of cards. It shuffles and picks 5 cards. Then, it indicates the value and suit of each card and whether there's a good combination. 
+For this assignment, I imported the [requests](https://pypi.org/project/requests/) and [json](https://www.w3schools.com/python/python_json.asp) libraries, then I stored in a variable the link to the API that generates a deck of cards, then I used [requests.get](https://www.w3schools.com/python/ref_requests_get.asp) to shuffle the deck and store it in response. Afterward, I got the response in JSON with [.json](https://stackoverflow.com/a/16877561). Later, I got the deck_id to use the same deck of cards for the next step. 
+
+```python
+import requests
+import json
+
+url = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
+
+response = requests.get(url)
+
+deck=response.json()
+
+id = deck["deck_id"]
+```
 
 The second URL used represents a draw of 5 cards of this deck. Then, I actively got the cards with requests.get, store them in JSON, and [identify the cards](https://realpython.com/python-for-loop/#sequences-lists-tuples-strings-and-ranges). For each card, I print the value and suit. 
 
-In the next step, I analysed the combinations with the function check_hand(cards). I identified the attributes for each card, with the values, suit and value_card. With [enumerate](https://realpython.com/python-enumerate/#using-pythons-enumerate), the values of the cards are connected with the value_card and create a sequence. In this hand of cards the following combinations are possible:
+```python
+url_2 = f"https://deckofcardsapi.com/api/deck/{id}/draw/?count=5"
 
-- Pair and/or Triple: I started checking for pairs and triples, and this can only be if the value of the card is the one right after it. If there are 2 or 3 cards with the value/key in sequence, then there's a pair or triple. I used [.append](https://www.w3schools.com/python/ref_list_append.asp) to signalize this and print the results to the user.
+response_2 = requests.get(url_2)
 
+hand=response_2.json()
+
+cards=hand["cards"]
+
+print(f"The cards drawn are:")
+for card in cards:
+    print(f"- {card["value"]} of {card["suit"]}")
+```
+
+In the next step, I analysed the combinations with the function check_hand(cards). I identified the attributes for each card, with the values, suit and value_card. With [enumerate](https://realpython.com/python-enumerate/#using-pythons-enumerate), the values of the cards are connected with the value_card and create a sequence. 
+
+```python
+def check_hand(cards):
+    values = [card["value"] for card in cards]
+
+    suits = [card["suit"] for card in cards]
+
+    value_card = {"ACE": 14, "KING": 13, "QUEEN": 12, "JACK": 11,
+              "10": 10, "9": 9, "8": 8, "7": 7, "6": 6,
+              "5": 5, "4": 4, "3": 3, "2": 2}
+    
+    for count, value in enumerate(values):
+        if value in value_card:
+            values[count] = value_card[value]
+        else:
+            values[count] = int(value)
+```
+
+In this hand of cards the following combinations are possible:
+
+- Pair and/or Triple: I started checking for pairs and triples, and this can only be if the value of the cards are the same, `value_counts[value] += 1`. If there are 2 or 3 cards with equal value/key, then there's a pair or triple. I used [.append](https://www.w3schools.com/python/ref_list_append.asp) to signalize this and print the results to the user.
+
+```python
+    value_counts = {}
+    for value in values:
+        if value in value_counts:
+            value_counts[value] += 1
+        else:
+            value_counts[value] = 1
+
+    pair = []
+    triple = []
+    for key in value_counts:
+        if value_counts[key] == 2:
+            pair.append(key)
+            print("Great, you have a pair.")
+        elif value_counts[key] == 3:
+            triple.append(key)
+            print("Very good, you have a triple.")
+```
 - Straight: To check for straight, all the cards' values need to be in sequence. The [sorted function](https://www.w3schools.com/python/ref_func_sorted.asp) will change the order of the values from the lowest to the highest. Then, the [while function](https://www.geeksforgeeks.org/python-while-else/) checks if there's a sequence in the values of the cards, for example, [2,3,4,5,6] is a straight.
 
-- Flush: Finally, for the flush, all the cards must have the same suit, so I used a for function, very similar to the one that checks pairs and triples. If all the 5 cards are the same suit, then the [len](https://realpython.com/len-python-function/
+```python
+    values = sorted(values)
+    count = 0
+    while count < len(values) - 1:
+        if values[count] + 1 != values[count + 1]:
+            straight = False
+            break
+        count += 1
+    else:
+        straight = True
+        print("Superb, you have a straight.")
+```
+
+- Flush: Finally, for the flush, all the cards must have the same suit, so I used a [for](https://www.w3schools.com/python/python_for_loops.asp) function, very similar to the one that checks pairs and triples. If all the 5 cards are the same suit, then the [len](https://realpython.com/len-python-function/
 ) of the suit_counts will be equal to 1 because there's only 1 type of suit that is present on the cards. 
+
+```python
+    suit_counts = {}
+    for suit in suits:
+        if suit in suit_counts:
+            suit_counts[suit] += 1
+        else:
+            suit_counts[suit] = 1
+    
+    flush = len(suit_counts) == 1
+    if flush:
+        print("Congratulations, you have a flush!")
+```
 
 Finally, the results of the function check_hand(cards) are returned, after analysing if any of these conditions are found in the cards. If there's a pair, triple, straight or flush, the print function will be activated individually for each.
 
-At the end, the final results are printed to the user, the pair and triple are returned as a list of the matching numbers, and the straight and the flush show as a boolean, true or false.
+At the end, the final results are printed to the user, the pair and triple are returned as a list of the matching numbers, and the straight and the flush show as a Boolean, true or false.
+
+```python
+    return {
+        "Pair": pair,
+        "Triple": triple,
+        "Straight": straight,
+        "Flush": flush
+        }
+result = check_hand(cards)
+
+print("Results:", result)
+```
 
 ### The CSO: [assignment03-cso.py](https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/assignments/assignment03-cso.py)
 
 In this assignment, the ["Exchequer Account (Historical Series)"](https://data.cso.ie/table/FIQ02) dataset from CSO is loaded and saved into a JSON file.
 
-The libraries used are the same as in the previous task, requests and json. The URL used is the link to the data in a [RESTFul API](https://aws.amazon.com/what-is/restful-api/#seo-faq-pairs#what-is-restful-api) provided by CSO. Then I created 2 functions:
+The libraries used are the same as in the previous task, requests and json. The URL used is the link to the data in a [RESTFul API](https://aws.amazon.com/what-is/restful-api/#seo-faq-pairs#what-is-restful-api) provided by CSO. 
+
+```python
+import requests
+import json 
+
+url = "https://ws.cso.ie/public/api.restful/PxStat.Data.Cube_API.ReadDataset/FIQ02/JSON-stat/2.0/en"
+```
+
+Then I created 2 functions:
 
 - getInfo(), loads the data and gets the JSON [response](https://pynative.com/parse-json-response-using-python-requests-library/) into a Python dictionary;
+
+```python
+
+def getInfo():   
+    response = requests.get(url)
+    return response.json()
+```
 
 - and getAsFile(), [creates a file](https://note.nkmk.me/en/python-file-io-open-with/#:~:text=To%20open%20a%20file%20for%20writing%2C%20set%20the%20mode%20argument,in%20an%20error%20(%20FileNotFoundError%20)
 ) inside the subdirectory json and with the name cso.json. Then [json.dumps](https://realpython.com/python-json/#convert-python-dictionaries-to-json) converts a Python dictionary into a JSON-formatted string.
 
+```python
+def getAsFile():
+    with open("./json/cso.json", "wt") as fp:
+        print(json.dumps(getInfo()), file=fp)
+```
+
 At the end, the statement [if name == "__main__"]("https://www.datacamp.com/tutorial/if-name-equals-main-python#best-practices-and-tips-when-using-python's-if-__name__-==-%22__main__%22-%3Cspan") is used as a script that determines how the program runs. The function getAsFile() is called, after that, it automatically runs the other function getInfo(), as it depends on it. The file cso.json can be found [here](https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/assignments/json/cso.json) as expected.
+
+```python
+if __name__ == "__main__":
+    getAsFile()
+```
 
 ### The GitHub: [assignment04-github.py](https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/assignments/assignment04-github.py)
 
-In this assignment, I used a file from Professor Andrew Beatty [repository in GitHub]((https://github.com/andrewbeattycourseware/WSAA-Courseware/blob/main/code/Topic-01-introduction%20-%20Copy/book.json)), changed this file, committed and pushed it to my repository. The libraries used are again requests and json, and also [Github](https://pygithub.readthedocs.io/en/latest/introduction.html). Then I imported the key from a config file that I created and hid it, to protect my account from others, so they can't manipulate my account. This key permits this program to commit and push the changes back to my repository.
+In this assignment, I used a file from Professor Andrew Beatty's [repository on GitHub](https://github.com/andrewbeattycourseware/WSAA-Courseware/blob/main/code/Topic-01-introduction%20-%20Copy/book.json). I changed this file, committed it and pushed it to my repository. The libraries used are again requests and json, and also [Github]((https://pygithub.readthedocs.io/en/latest/introduction.html)). Then I imported the key from a config file that I created and hid it, to protect my account from others, so they can't manipulate my account. This key permits this program to commit and push the changes back to my repository.
+
+```python
+from github import Github
+import requests
+import json
+from config import apikeys as cfg
+```
 
 I used the URL of the [raw version](https://raw.githubusercontent.com/andrewbeattycourseware/WSAA-Courseware/main/code/Topic-01-introduction%20-%20Copy/book.json) of the JSON file from the Professor's repository. Then I loaded the file with request.get, got the contents in text with [.text](https://realpython.com/python-requests/#content) and loaded it as a python object with [json.loads](https://docs.python.org/3/library/json.html#json.loads). Then, I created a function that checks this file, the [.replace](https://www.w3schools.com/python/ref_string_replace.asp) takes a string from the original file and replaces it with the new string. I changed "Andrew Beatty" to "Fatima Oliveira". With [json.dumps](https://docs.python.org/3/library/json.html#json.dumps), the Python object is converted back as a JSON string. After that, I applied those changes to updated_content.
 
+```python
+url = "https://raw.githubusercontent.com/andrewbeattycourseware/WSAA-Courseware/main/code/Topic-01-introduction%20-%20Copy/book.json"
+
+response = requests.get(url)
+contentOfFile = response.text
+
+data = json.loads(contentOfFile)
+
+def replace_in_json(data, old_data, new_data):
+    return json.loads(json.dumps(data).replace(old_data, new_data))
+                                               
+replace_data = replace_in_json(data, "Andrew Beatty", "Fatima Oliveira")
+
+updated_content = json.dumps(replace_data, indent=4)
+```
+
 Now, for the program to log in to my GitHub, I needed to generate the key, as explained by [GitHub Docs](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token). After that, I indicated the path to my key in the config file, then I used [Github(apikey)](https://pypi.org/project/PyGithub/) to indicate that this key is to get into my account. To finalize it, I use [.get_repo](https://pygithub.readthedocs.io/en/latest/examples/Repository.html) with the path to my repository that I want to [create the file in](https://pygithub.readthedocs.io/en/latest/examples/Repository.html#create-a-new-file-in-the-repository).
 
-I created a new function, create_or_read(), that indicates to the machine to check if the file already exists in the `try` section, with [get_contents](https://pygithub.readthedocs.io/en/latest/examples/Repository.html#get-a-specific-content-file). Then, I indicated the [URL of this file](https://github.com/PyGithub/PyGithub/issues/1343#issuecomment-572907398) with the [fileInfo.download_url](https://pygithub.readthedocs.io/en/v1.58.0/github_objects/ContentFile.html#github.ContentFile.ContentFile.download_url). Then, I got the response and turned it into text and print the contents. If the file doesn't exist, then the section `except` runs and [.create_file](https://pygithub.readthedocs.io/en/stable/github_objects/Repository.html#github.Repository.Repository.create_file) indicates the path for the file and the message to be committed in GitHub, with the content being the updated_content as defined above.
+```python
+apikey = cfg["apikeywsaa"]
+g = Github(apikey)
 
-Again, I defined the main function of this script with the if statement, and one of the sections of create_or_read() `try` or `except` will run.
+repo = g.get_repo("FatimaBOliveira/WSAA-coursework")
+```
+
+I created a new function, create_or_read(), that indicates to the machine to check if the file already exists in the `try` section, with [get_contents](https://pygithub.readthedocs.io/en/latest/examples/Repository.html#get-a-specific-content-file). Then, I indicated the [URL of this file](https://github.com/PyGithub/PyGithub/issues/1343#issuecomment-572907398) with the [fileInfo.download_url](https://pygithub.readthedocs.io/en/v1.58.0/github_objects/ContentFile.html#github.ContentFile.ContentFile.download_url). Then, I got the response and turned it into text and printed the contents. If the file doesn't exist, then the section `except` runs and [.create_file](https://pygithub.readthedocs.io/en/stable/github_objects/Repository.html#github.Repository.Repository.create_file) indicates the path for the file and the message to be committed in GitHub, with the content being the updated_content as defined above.
+
+```python
+def create_or_read():
+
+    try:
+        fileInfo = repo.get_contents(path="assignments/json/assignment4_book.json")
+        urlFile = fileInfo.download_url
+        response = requests.get(urlFile)
+        contentFile = response.text
+        print ("File content:\n", contentFile)
+    
+    except: 
+        repo.create_file(path ="assignments/json/assignment4_book.json", 
+                                       message = "Create new file: assignment4_book.json", content = updated_content)
+        print("File created with updated content:\n", updated_content)
+```
+Again, I defined the main function of this script with the if statement, create_or_read(), and this runs one of the sections `try` or `except`.
+
+```python
+if __name__ == "__main__":
+    create_or_read()
+```
+
 ***
 ## END
