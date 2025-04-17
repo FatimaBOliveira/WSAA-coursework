@@ -1,13 +1,12 @@
 # Draw cards
-# This program will use an API that simulates a draw of a deck of cards.
+# This program uses an API that simulates a draw of a deck of cards.
 # First, it shuffles, then it picks 5 cards, indicating the value and suit of each card.
 # It also indicates if there's any combination: pair, triple, straight or flush.
-# For a detailed walkthrough, please check the README file in: https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/assignments#the-card-draw-assignment2-carddrawpy
+# For a detailed walkthrough, please check this section in the README file: https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/assignments#the-card-draw-assignment2-carddrawpy
 # Author: Fatima Oliveira
 
-# Import libraries.
+# Import library
 import requests
-import json
 
 # URL to generate the deck of cards.
 url = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
@@ -16,12 +15,10 @@ url = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
 response = requests.get(url)
 
 # Get the response in JSON.
-#print(response.json())
 deck=response.json()
 
 # ID of the deck of cards.
 id = deck["deck_id"]
-#print(id)
 
 # Url that uses the deck id above and draws 5 cards.
 url_2 = f"https://deckofcardsapi.com/api/deck/{id}/draw/?count=5"
@@ -31,11 +28,9 @@ response_2 = requests.get(url_2)
 
 # Get the results with json.
 hand=response_2.json()
-#print(hand)
 
 # Cards picked.
 cards=hand["cards"]
-#print(cards)
 
 # Get the value and suit for each card.
 print(f"The cards drawn are:")

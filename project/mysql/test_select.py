@@ -8,8 +8,14 @@ db = mysql.connector.connect(
 )
 
 cursor = db.cursor()
-sql="select * from patient where id = %s"
-values = (1,)
+
+# Select from patient table.
+#sql="select * from patient where id = %s"
+#values = (1,)
+
+# Select from treatment table.
+sql="select * from treatment where patient_id = %s AND date_time LIKE %s"
+values = (1, "2025-04-15%")
 
 cursor.execute(sql, values)
 result = cursor.fetchall()

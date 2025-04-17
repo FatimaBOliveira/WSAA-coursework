@@ -50,11 +50,10 @@ Email: g00438857@atu.ie or Fatima.21.00@hotmail.com
 ### The card draw: [assignment2-carddraw.py](https://github.com/FatimaBOliveira/WSAA-coursework/blob/main/assignments/assignment2-carddraw.py)
 ***
  This program uses an API that simulates drawing a deck of cards. It shuffles and picks 5 cards. Then, it indicates the value and suit of each card and whether there's a good combination. 
-For this assignment, I imported the [requests](https://pypi.org/project/requests/) and [json](https://www.w3schools.com/python/python_json.asp) libraries, then I stored in a variable the link to the API that generates a deck of cards, then I used [requests.get](https://www.w3schools.com/python/ref_requests_get.asp) to shuffle the deck and store it in response. Afterward, I got the response in JSON with [.json](https://stackoverflow.com/a/16877561). Later, I got the deck_id to use the same deck of cards for the next step. 
+For this assignment, I imported the [requests](https://pypi.org/project/requests/) library, then I stored in a variable the link to the API that generates a deck of cards, then I used [requests.get](https://www.w3schools.com/python/ref_requests_get.asp) to shuffle the deck and store it in response. Afterward, I got the response in JSON with [.json](https://stackoverflow.com/a/16877561). Later, I got the deck_id to use the same deck of cards for the next step. 
 
 ```python
 import requests
-import json
 
 url = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1"
 
@@ -173,7 +172,7 @@ print("Results:", result)
 ***
 In this assignment, the ["Exchequer Account (Historical Series)"](https://data.cso.ie/table/FIQ02) dataset from CSO is loaded and saved into a JSON file.
 
-The libraries used are the same as in the previous task, requests and json. The URL used is the link to the data in a [RESTFul API](https://aws.amazon.com/what-is/restful-api/#seo-faq-pairs#what-is-restful-api) provided by CSO. 
+The libraries used are requests and [json](https://www.w3schools.com/python/python_json.asp). The URL used is the link to the data in a [RESTFul API](https://aws.amazon.com/what-is/restful-api/#seo-faq-pairs#what-is-restful-api) provided by CSO. 
 
 ```python
 import requests

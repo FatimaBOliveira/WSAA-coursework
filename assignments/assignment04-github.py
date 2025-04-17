@@ -1,7 +1,7 @@
 # GitHub
 # Program that reads a file from a repository and replaces the text "Andrew" with my name.
 # The program will then commit those changes and push them back to the repository.
-# For a detailed walkthrough, please check the README file in: https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/assignments#the-github-assignment04-githubpy
+# For a detailed walkthrough, please check this section of the README file. https://github.com/FatimaBOliveira/WSAA-coursework/tree/main/assignments#the-github-assignment04-githubpy
 # Author: Fatima Oliveira
 
 # Import libraries
@@ -16,7 +16,6 @@ url = "https://raw.githubusercontent.com/andrewbeattycourseware/WSAA-Courseware/
 # Fetch the file.
 response = requests.get(url)
 contentOfFile = response.text
-#print (contentOfFile)
 
 # Load JSON.
 data = json.loads(contentOfFile)
@@ -30,7 +29,6 @@ replace_data = replace_in_json(data, "Andrew Beatty", "Fatima Oliveira")
 
 # Convert back to JSON.
 updated_content = json.dumps(replace_data, indent=4)
-#print(updated_content)
 
 # Api key.
 apikey = cfg["apikeywsaa"]
@@ -38,7 +36,6 @@ g = Github(apikey)
 
 # Get repo.
 repo = g.get_repo("FatimaBOliveira/WSAA-coursework")
-#print(repo)
 
 # A function that creates or reads the modified file in my repository.
 def create_or_read():
