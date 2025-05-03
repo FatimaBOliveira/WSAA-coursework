@@ -2,18 +2,25 @@
 # author: Fatima Oliveira
 
 from flask import Flask, request, jsonify, abort
-from datetime import datetime
+from datetime import datetime, timedelta
 #from treatmentDAOskeleton import treatmentDAO
 from TreatmentDAO import treatmentDAO
+from flask import Flask
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+#CORS(app)   # Enable CORS globally for the API
+#CORS(app, supports_credentials=True)  # Enable CORS with credentials
+#CORS(app, resources={r"/treatment/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/')
 def index():
         return "Hello world!"
 
 # getall
-# curl http://127.0.0.1:5000/treament
+# curl http://127.0.0.1:5000/treatment
 @app.route('/treatment', methods=['GET'])
 def getall():
         return jsonify(treatmentDAO.getAll())
@@ -26,7 +33,6 @@ def findbyid(patient_id):
     if not treatment:  # Check if the patient exists
         abort(404, description="Patient not found")
     return jsonify(treatment)
-
 
 #create
 # curl -H "Content-Type: application/json" -X POST -d "{\"patient_id\":2,\"date_time\":\"2025-04-17 10:10\", \"bp_systolic\":100, \"bp_diastolic\":65, \"heart_rate\":69, \"notes\":\"Patient is feeling well.\"}" http://127.0.0.1:5000/treatment
@@ -64,7 +70,7 @@ def create():
         return jsonify(treatmentDAO.create(treatment))
 
 # update
-# curl -H "Content-Type:application/json" -X PUT -d "{\"bp_systolic\":100, \"bp_diastolic\":65, \"heart_rate\":69, \"notes\":\"BP dropping, UF suspended.\"}" http://127.0.0.1:5000/treatment/2/2025-04-17%2010:10
+# curl -H "Content-Type:application/json" -X PUT -d "{\"bp_systolic\":100, \"bp_diastolic\":65, \"heart_rate\":69, \"notes\":\"BP dropping, UF suspended.\"}" "http://127.0.0.1:5000/treatment/2/2025-04-17%2010:10"
 @app.route('/treatment/<int:patient_id>/<string:date_time>', methods=['PUT'])
 def update(patient_id, date_time):
         jsonstring = request.json
@@ -77,8 +83,10 @@ def update(patient_id, date_time):
         try:
         # Handle URL-decoded time
                 parsed_time = datetime.strptime(date_time, '%Y-%m-%d %H:%M')
+                adjusted_time = parsed_time - timedelta(hours=0)  # Adjust for timezone difference
+                date_time_str = adjusted_time.strftime('%Y-%m-%d %H:%M:%S')
         except ValueError:
-               return jsonify({"error": f"{parsed_time} Invalid date_time format. Use 'YYYY-MM-DD HH:MM'"}), 400
+              return jsonify({"error": "Invalid date_time format. Use 'YYYY-MM-DD HH:MM'"}), 400
         
         if "bp_systolic" not in jsonstring:
                 abort(400)
@@ -93,10 +101,10 @@ def update(patient_id, date_time):
                 abort(400)
         treatment["notes"] = jsonstring["notes"]
        
-        return jsonify(treatmentDAO.update(patient_id, date_time, treatment))
+        return jsonify(treatmentDAO.update(patient_id, date_time_str, treatment))
 
 # Delete
-# curl -X DELETE  http://127.0.0.1:5000/treatment/2/2025-04-17%2010:10
+# curl -X DELETE  "http://127.0.0.1:5000/treatment/2/2025-04-17%2010:10"
 
 @app.route('/treatment/<int:patient_id>/<string:date_time>', methods=['DELETE'])
 def delete(patient_id, date_time):

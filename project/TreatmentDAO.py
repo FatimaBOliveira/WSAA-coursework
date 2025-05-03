@@ -3,6 +3,7 @@
 
 import mysql.connector
 from dbconfig import database as db
+import datetime
 
 class TreatmentDAO:
     connection=""
@@ -31,10 +32,10 @@ class TreatmentDAO:
     def closeAll(self):
         self.connection.close()
         self.cursor.close()
-         
+     
     def getAll(self):
         cursor = self.getcursor()
-        sql="SELECT * from treatment ORDER BY patient_id, date_time DESC"
+        sql="SELECT * from treatment ORDER BY date_time DESC" # ORDER BY patient_id,
         cursor.execute(sql)
         results = cursor.fetchall()
         returnArray = []
@@ -46,21 +47,26 @@ class TreatmentDAO:
         self.closeAll()
         return returnArray
 
+    
     def findByID(self, patient_id):
         cursor = self.getcursor()
-        sql = "SELECT * FROM treatment WHERE patient_id = %s ORDER BY date_time"
+        sql = "SELECT * FROM treatment WHERE patient_id = %s ORDER BY date_time DESC"
         values = (patient_id,)
-    
         cursor.execute(sql, values)
-        result = cursor.fetchall()
-    
-        if result is None:
+        rows = cursor.fetchall()
+
+        if not rows:
+            self.closeAll()
             return None
-    
-        returnvalue = self.convertToDictionary(result)
+
+        treatments = []
+        for row in rows:
+            treatment = self.convertToDictionary(row)
+            treatments.append(treatment)
+
         self.closeAll()
-        return returnvalue
-    
+        return treatments
+
     def create(self, treatment):
         cursor = self.getcursor()
         sql = "INSERT INTO treatment (patient_id, date_time, bp_systolic, bp_diastolic, heart_rate, notes) VALUES (%s, %s, %s, %s, %s, %s)"
@@ -76,8 +82,15 @@ class TreatmentDAO:
 
     def update(self, patient_id, date_time, treatment):
         cursor = self.getcursor()
-        sql = "update treatment set bp_systolic= %s, bp_diastolic=%s, heart_rate=%s, notes=%s where patient_id = %s AND DATE_FORMAT(date_time, '%Y-%m-%d %H:%i') = %s"
+        #sql = "update treatment set bp_systolic= %s, bp_diastolic=%s, heart_rate=%s, notes=%s where patient_id = %s AND DATE_FORMAT(date_time, '%Y-%m-%d %H:%i') = %s"
+        sql = ("""
+            UPDATE treatment
+            SET bp_systolic = %s, bp_diastolic = %s, heart_rate = %s, notes = %s
+            WHERE patient_id = %s AND date_time LIKE %s;
+            """)
+
         print(f"Update treatment {treatment}")
+
         values = (treatment.get("bp_systolic"), treatment.get("bp_diastolic"), treatment.get("heart_rate"), treatment.get("notes"), patient_id, date_time)
         cursor.execute(sql, values)
         rows_updated = cursor.rowcount
@@ -87,8 +100,10 @@ class TreatmentDAO:
         
     def delete(self, patient_id, date_time):
         cursor = self.getcursor()
-        sql = "delete from treatment where patient_id = %s AND DATE_FORMAT(date_time, '%Y-%m-%d %H:%i') = %s"
-        values = (patient_id, date_time)
+        #sql = "delete from treatment where patient_id = %s AND DATE_FORMAT(date_time, '%Y-%m-%d %H:%i') = %s"
+        sql = "delete from treatment where patient_id = %s AND date_time LIKE %s;"
+        #values = (patient_id, date_time)
+        values = (patient_id, f"{date_time}%")  # Add % to match seconds
         cursor.execute(sql, values)
 
         if cursor.rowcount == 0:  # Check if no rows were affected
