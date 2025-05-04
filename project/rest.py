@@ -1,20 +1,15 @@
 # flask server that links to a DAO
 # author: Fatima Oliveira
 
-#from flask import Flask, request, jsonify, abort
 from flask import Flask, request, jsonify, abort, send_from_directory
+from flask_cors import CORS
 from datetime import datetime, timedelta
 from PatientDAO import patientDAO
 from TreatmentDAO import treatmentDAO
-from flask import Flask
-from flask_cors import CORS
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='interface')
 
-CORS(app)   # Enable CORS globally for the API
-#CORS(app, supports_credentials=True)  # Enable CORS with credentials
-#CORS(app, resources={r"/treatment/*": {"origins": "*"}})
-#CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app)
 
 @app.route('/')
 def index():
@@ -197,8 +192,6 @@ def delete_tx(patient_id, date_time):
         abort(404, description="Treatment record not found or already deleted.")
 
     return jsonify({"message": f"Treatment for the patient {patient_id} at {date_time} deleted successfully"})
-
-
 
 ################################################################
 # To access both pages 
