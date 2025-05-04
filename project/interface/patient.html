@@ -14,17 +14,26 @@
             }
         </style>
         <style>
-            body {background-color: whitesmoke;}
-            h1 {color: blue;}
+            body {background-color: snow;}
+            h1 {color: darkolivegreen; border-style:outset}
             h2 {color: darkcyan;}
+        </style>
+        <style>
+            .table {
+              --bs-table-color: var(--bs-gray-600);
+              --bs-table-bg: var(--bs-gray-100);
+              --bs-table-border-color: transparent;
+            }
         </style>
     </head>
     <body onload="loadPatients()">
-        <h1 class="ex1">Patients</h1>
-        <div><button id="button-showCreate" onclick="showCreate()">Create a patient</button><br><br/></div>
+        <h1 class="ex1" style="cursor: pointer; background-color:whitesmoke" onclick="showViewall()">Patients</h1>
+        <!-- Button to navigate to Treatments main page -->
+        <button id="goToTreatment" onclick="window.location.href='/treatment_ui'" class="btn btn-primary btn-sm">Go to Treatments</button><br/><br/>
+        <div><button id="button-showCreate" onclick="showCreate()" class="btn btn-success">Create a patient</button><br><br/></div>
         <div>
             <table class="table" id="patientTable">
-                <tr>
+                <tr class="table-primary">
                         <th>Id</th>
                         <th>Name</th>
                         <th>Age</th>
@@ -34,18 +43,21 @@
             </table>
             <br/>
         </div>
-        <div id="createUpdateForm" style="display:none">
+        <div id="createUpdateForm" style="display:none" class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
             <h2><span id="createLabel">Create a</span> <span id="updateLabel">Update this</span> patient</h2>
-            Id <input type="number" name="id"><br/>
+            Id <input type="number" name="id" min="1"><br/>
             Name <input type="text" name="name"><br/>
-            Age <input type="number" name="age"><br/>
+            Age <input type="number" name="age" min="0"><br/>
             Type of treatment <br/>
-            HD <input type="radio" name="type_of_treatment" value = "HD" id="HD"/>
-            HDF <input type="radio" name="type_of_treatment" value = "HDF" id="HDF"/><br/>
-
-            <span><button id="button-doCreate" onclick="doCreate()">Create</button></span>
- 			<span><button id="button-doUpdate" onclick="doUpdate()">Update</button></span>
-        </div>    
+            HD <input type="radio" name="type_of_treatment" value = "HD" id="HD" class="form-check-input"/>
+            HDF <input type="radio" name="type_of_treatment" value = "HDF" id="HDF" class="form-check-input"/><br/>
+           
+            <span><button id="button-doCreate" onclick="doCreate()" class="btn btn-success">Create</button></span>
+ 			<span><button id="button-doUpdate" onclick="doUpdate()" class="btn btn-success">Update</button></span>
+        </div>
+        <div id="backToViewAll" style="display: none;">
+            <span><button id="button-backToViewAll" onclick="showViewall()" class="btn btn-secondary">Go back</button></span>
+        </div>
     </body>
     <script>
 
@@ -57,8 +69,15 @@
             document.getElementById("createLabel").style.display = "inline"
             document.getElementById("updateLabel").style.display = "none"
 
+            // Show the "Go back to View All" button when in update mode
+            document.getElementById("backToViewAll").style.display = "block";
+
+            // Hide button
+            document.getElementById("goToTreatment").style.display = "none";
+
             document.getElementById("button-showCreate").style.display = "none"
             document.getElementById("patientTable").style.display = "none"
+            clearForm();  // Ensure the form is cleared when creating a new patient
             
         }
         function showUpdate(buttonElement){
@@ -72,6 +91,12 @@
             document.getElementById("button-showCreate").style.display = "none"
             document.getElementById("patientTable").style.display = "none"
 
+            // Show the "Go back to View All" button when in update mode
+            document.getElementById("backToViewAll").style.display = "block";
+
+            // Hide button
+            document.getElementById("goToTreatment").style.display = "none";
+
             rowElement= buttonElement.parentNode.parentNode
             patient = getPatientFromRow(rowElement)
             //console.log("updating")
@@ -84,7 +109,12 @@
            
             document.getElementById("button-showCreate").style.display = "block"
             document.getElementById("patientTable").style.display = "block"
-            
+
+            // Hide the "Go back to View All" button when in View All mode
+            document.getElementById("backToViewAll").style.display = "none";
+
+            // Optionally, reload the page to reset everything (styles, state, etc.)
+            window.location.reload();
         }
 
         function clearForm(){
@@ -139,9 +169,9 @@
             var cell4 = rowElement.insertCell(3);
             cell4.innerHTML = patient.type_of_treatment
             var cell5 = rowElement.insertCell(4);
-            cell5.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+            cell5.innerHTML = '<button onclick="showUpdate(this)" class="btn btn-info">Update</button>'
             var cell6 = rowElement.insertCell(5);
-            cell6.innerHTML = '<button onclick=doDelete(this)>delete</button>'
+            cell6.innerHTML = '<button onclick=doDelete(this) class="btn btn-danger">Delete</button>'
 
         }
         function getPatientFromRow(rowElement){

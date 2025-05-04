@@ -13,23 +13,30 @@
             }
         </style>        
         <style>
-            body {background-color: whitesmoke;}
-            h1 {color: blue;}
+            body {background-color: snow; font-family: Verdana, sans-serif;}
+            h1 {color: darkblue; border-style:outset}
             h2 {color: darkcyan;}
+        </style>
+        <style>
+            .table {
+              --bs-table-color: var(--bs-gray-600);
+            }
         </style>
     </head>
     <body onload="loadTreatment(); loadPatients();">
-        <h1 class="ex1" style="cursor: pointer;" onclick="showViewall()">Treatments</h1>
-        <div><button id="button-showCreate" onclick="showCreate()">Create a treatment</button><br><br/></div>
+        <h1 class="ex1" onclick="showViewall()" style="cursor: pointer; background-color:whitesmoke">Treatments</h1>
+        <!-- Navigation buttons -->
+        <button id="goToPatient" onclick="window.location.href='/patient_ui'" class="btn btn-primary btn-sm">Go to Patients</button><br/><br/>
         <div>
-            <label for="patientSelect">Choose a patient:</label>
-            <select id="patientSelect" onchange="loadTreatmentsForPatient()">
+            <button id="button-showCreate" class="btn btn-success" onclick="showCreate()">Create a treatment</button>
+            <label for="patientSelect"></label>
+            <select id="patientSelect" class="btn btn-success dropdown-toggle" onchange="loadTreatmentsForPatient()">
                 <option value="">Select a patient</option>
-            </select>      
+            </select><br/><br/>
         </div>
         <div>
-            <table class="table" id="treatmentTable">
-                <tr>
+            <table class="table table-striped" id="treatmentTable">
+                <tr class="table-primary">
                         <th>ID</th>
                         <th>Date & time</th>
                         <th>Bp systolic</th>
@@ -41,24 +48,24 @@
                 </tr>
             </table>
         </div>
-        <div id="createUpdateForm" style="display:none">
+        <div id="createUpdateForm" style="display:none" class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
             <h2><span id="createLabel">Create a</span> <span id="updateLabel">Update this</span> treatment</h2>
-            Id <input type="number" name="id"><br/>
-            Date & Time<input type="datetime-local" id="date_time" name="date_time"><br/>
-            Bp systolic <input type="number" name="bp_systolic"><br/>
-            Bp diastolic <input type="number" name="bp_diastolic"><br/>
-            Heart rate <input type="number" name="heart_rate"><br/>
-            Notes <input type="text" name="notes" size="100"><br/>
-
-            <span><button id="button-doCreate" onclick="doCreate()">Create</button></span>
- 			<span><button id="button-doUpdate" onclick="doUpdate()">Update</button></span>
+            Id <input type="number" name="id" min="1"><br/>
+            Date & Time<input type="datetime-local" id="date_time" name="date_time" min="1900-01-01T00:00"><br/>
+            Bp systolic <input type="number" name="bp_systolic" min="20" max="250"><br/>
+            Bp diastolic <input type="number" name="bp_diastolic" min="10" max="150"><br/>
+            Heart rate <input type="number" name="heart_rate" min="0" max="220"><br/>
+            Notes<br/>
+            <textarea name="notes" rows="6" cols="80"></textarea><br/>
+        
+            <span><button id="button-doCreate" onclick="doCreate()" class="btn btn-success">Create</button></span>
+ 			<span><button id="button-doUpdate" onclick="doUpdate()" class="btn btn-success">Update</button></span>
         </div>
-        <div id="backToViewAllBtnDiv" style="display: none;">
-            <span><button id="backToViewAllBtn" onclick="showViewall()">Go back</button></span>
+        <div id="backToViewAll" style="display: none;">
+            <span><button id="button-backToViewAll" onclick="showViewall()" class="btn btn-secondary">Go back</button></span>
         </div>
     </body>
     <script>
-
         function showCreate(){
             document.getElementById("createUpdateForm").style.display = "block"
 
@@ -67,7 +74,10 @@
             document.querySelector('label[for="patientSelect"]').style.display = "none";  // Hide the label
 
             // Show the "Go back to View All" button when in update mode
-            document.getElementById("backToViewAllBtnDiv").style.display = "block";
+            document.getElementById("backToViewAll").style.display = "block";
+
+            // Hide button
+            document.getElementById("goToPatient").style.display = "none";
 
             // Ensure the date and time field is not disabled when creating
             var form = document.getElementById('createUpdateForm');
@@ -91,7 +101,10 @@
             document.querySelector('label[for="patientSelect"]').style.display = "none";  // Hide the label
 
             // Show the "Go back to View All" button when in update mode
-            document.getElementById("backToViewAllBtnDiv").style.display = "block";
+            document.getElementById("backToViewAll").style.display = "block";
+
+            // Hide button
+            document.getElementById("goToPatient").style.display = "none";
            
             document.getElementById("button-doCreate").style.display = "none"
             document.getElementById("button-doUpdate").style.display = "block"
@@ -119,15 +132,16 @@
             // Clear patient selection
             document.getElementById("patientSelect").value = "";
 
-            // Load all treatments
-            reloadTable();
-
             // Hide the "Go back to View All" button when in View All mode
-            document.getElementById("backToViewAllBtnDiv").style.display = "none";
+            document.getElementById("backToViewAll").style.display = "none";
            
             document.getElementById("button-showCreate").style.display = "block"
             document.getElementById("treatmentTable").style.display = "block"
-            
+
+            // Optionally, reload the page to reset everything (styles, state, etc.)
+            window.location.reload();
+            // Load all treatments
+            reloadTable();
         }
 
         function clearForm(){
@@ -139,7 +153,7 @@
             form.querySelector('input[name="bp_systolic"]').value = '';
             form.querySelector('input[name="bp_diastolic"]').value = '';
             form.querySelector('input[name="heart_rate"]').value = '';
-            form.querySelector('input[name="notes"]').value = '';
+            form.querySelector('textarea[name="notes"]').value = '';
         }
 
         function getTreatmentFromForm(){
@@ -151,7 +165,7 @@
         	treatment.bp_systolic = form.querySelector('input[name="bp_systolic"]').value
             treatment.bp_diastolic = form.querySelector('input[name="bp_diastolic"]').value
             treatment.heart_rate = form.querySelector('input[name="heart_rate"]').value
-            treatment.notes = form.querySelector('input[name="notes"]').value
+            treatment.notes = form.querySelector('textarea[name="notes"]').value
 
             return treatment
         }
@@ -179,7 +193,7 @@
             form.querySelector('input[name="bp_systolic"]').value = treatment.bp_systolic;
             form.querySelector('input[name="bp_diastolic"]').value = treatment.bp_diastolic;
             form.querySelector('input[name="heart_rate"]').value = treatment.heart_rate;
-            form.querySelector('input[name="notes"]').value = treatment.notes;
+            form.querySelector('textarea[name="notes"]').value = treatment.notes;
         }
 
         function addTreatmentToTable(treatment) {
@@ -201,9 +215,9 @@
             var cell6 = rowElement.insertCell(5)
             cell6.innerHTML = treatment.notes
             var cell7 = rowElement.insertCell(6)
-            cell7.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+            cell7.innerHTML = '<button onclick="showUpdate(this)" class="btn btn-info">Update</button>'
             var cell8 = rowElement.insertCell(7)
-            cell8.innerHTML = '<button onclick="doDelete(this)">Delete</button>'
+            cell8.innerHTML = '<button onclick="doDelete(this)" class="btn btn-danger">Delete</button>'
         }
 
         // Helper function to format the date for display (not for input)
@@ -338,7 +352,7 @@
             var bp_systolic = form.querySelector('input[name="bp_systolic"]').value;
             var bp_diastolic = form.querySelector('input[name="bp_diastolic"]').value;
             var heart_rate = form.querySelector('input[name="heart_rate"]').value;
-            var notes = form.querySelector('input[name="notes"]').value;
+            var notes = form.querySelector('textarea[name="notes"]').value;
 
             if (!patient_id || !date_time || !bp_systolic || !bp_diastolic || !heart_rate || !notes) {
                 alert("All fields are required!");
@@ -366,10 +380,10 @@
                 row.insertCell(5).innerText = treatment.notes;
             
                 const updateCell = row.insertCell(6);
-                updateCell.innerHTML = '<button onclick="showUpdate(this)">Update</button>';
+                updateCell.innerHTML = '<button onclick="showUpdate(this)" class="btn btn-info">Update</button>';
             
                 const deleteCell = row.insertCell(7);
-                deleteCell.innerHTML = '<button onclick="doDelete(this)">Delete</button>';
+                deleteCell.innerHTML = '<button onclick="doDelete(this)" class="btn btn-danger">Delete</button>';
             });
         }
 
@@ -463,12 +477,12 @@
                     select.innerHTML = '<option value="">Select a patient</option>';
 
                 
-                    const seen = new Set();
+                    var seen = new Set();
                     patients.forEach(patient => {
                         if (!seen.has(patient.patient_id)) {
                             let option = document.createElement("option");
                             option.value = patient.patient_id;  
-                            option.textContent = `(ID: ${patient.patient_id})`;
+                            option.textContent = `ID: ${patient.patient_id}`;
                             select.appendChild(option);
                             seen.add(patient.patient_id);
                         }
