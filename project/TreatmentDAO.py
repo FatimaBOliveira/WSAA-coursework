@@ -3,7 +3,6 @@
 
 import mysql.connector
 from dbconfig import database as db
-import datetime
 
 class TreatmentDAO:
     connection=""
@@ -35,13 +34,12 @@ class TreatmentDAO:
      
     def getAll(self):
         cursor = self.getcursor()
-        sql="SELECT * from treatment ORDER BY date_time DESC" # ORDER BY patient_id,
+        sql="SELECT * from treatment ORDER BY date_time DESC"
         cursor.execute(sql)
         results = cursor.fetchall()
         returnArray = []
-        #print(results)
+
         for result in results:
-            #print(result)
             returnArray.append(self.convertToDictionary(result))
         
         self.closeAll()
@@ -74,15 +72,12 @@ class TreatmentDAO:
         cursor.execute(sql, values)
 
         self.connection.commit()
-        #newid = cursor.lastrowid
-        #treatment["patient_id"] = newid
         self.closeAll()
         return treatment
 
 
     def update(self, patient_id, date_time, treatment):
         cursor = self.getcursor()
-        #sql = "update treatment set bp_systolic= %s, bp_diastolic=%s, heart_rate=%s, notes=%s where patient_id = %s AND DATE_FORMAT(date_time, '%Y-%m-%d %H:%i') = %s"
         sql = ("""
             UPDATE treatment
             SET bp_systolic = %s, bp_diastolic = %s, heart_rate = %s, notes = %s
@@ -100,9 +95,7 @@ class TreatmentDAO:
         
     def delete(self, patient_id, date_time):
         cursor = self.getcursor()
-        #sql = "delete from treatment where patient_id = %s AND DATE_FORMAT(date_time, '%Y-%m-%d %H:%i') = %s"
         sql = "delete from treatment where patient_id = %s AND date_time LIKE %s;"
-        #values = (patient_id, date_time)
         values = (patient_id, f"{date_time}%")  # Add % to match seconds
         cursor.execute(sql, values)
 

@@ -196,17 +196,16 @@ def delete_tx(patient_id, date_time):
 ################################################################
 # To access both pages 
 # Serve treatment.html from treatment_interface
-# http://127.0.0.1:5000/treatment_ui
-@app.route('/treatment_ui')
+# http://127.0.0.1:5000/treatment_i
+@app.route('/treatment_i')
 def treatment_ui():
     return send_from_directory('interface', 'treatment.html')
 
 # Serve patient.html from patient_interface
-# http://127.0.0.1:5000/patient_ui
-@app.route('/patient_ui')
+# http://127.0.0.1:5000/patient_i
+@app.route('/patient_i')
 def patient_ui():
     return send_from_directory('interface', 'patient.html')
-
 
 
 if __name__ == "__main__":

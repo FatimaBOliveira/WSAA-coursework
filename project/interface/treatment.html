@@ -17,7 +17,7 @@
     <body onload="loadTreatment(); loadPatients();">
         <h1 class="ex1" onclick="showViewall()">Treatments</h1>
         <!-- Navigation buttons -->
-        <button id="goToPatient" onclick="window.location.href='/patient_ui'" class="btn btn-primary btn-sm">Go to Patients</button><br/><br/>
+        <button id="goToPatient" onclick="window.location.href='/patient_i'" class="btn btn-primary btn-sm">Go to Patients</button><br/><br/>
         <div>
             <button id="button-showCreate" class="btn btn-success" onclick="showCreate()">Create a treatment</button>
             <label for="patientSelect"></label>
@@ -448,7 +448,8 @@
             console.log("Selected patient ID:", patientId);
 
             if (!patientId) {
-                loadTreatment()
+                //loadTreatment()
+                reloadTable()
                 return;
             }
         

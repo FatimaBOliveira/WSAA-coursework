@@ -1,9 +1,10 @@
 import mysql.connector
+from dbconfig import database as db
 
 connection = mysql.connector.connect(
- host="localhost",
- user="root",
- password=""
+ host= db['host'],
+ user= db['user'],
+ password= db['password'],
 )
 mycursor = connection.cursor()
 mycursor.execute("CREATE database clinic")

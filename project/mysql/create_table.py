@@ -3,12 +3,14 @@
 # Import library.
 import mysql.connector
 
+from dbconfig import database as db
+
 # Connect to mysql.
 connection = mysql.connector.connect(
- host="localhost",
- user="root",
- password="",
- database="clinic"
+ host= db['host'],
+ user= db['user'],
+ password= db['password'],
+ database= db['database']
 )
 mycursor = connection.cursor()
 
@@ -19,6 +21,7 @@ sql="CREATE TABLE patient ( id INT PRIMARY KEY, name VARCHAR(200), age INT, type
 sql_2="CREATE TABLE treatment (patient_id INT, date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, bp_systolic INT, bp_diastolic INT, heart_rate INT, notes VARCHAR(500), CONSTRAINT fk_treatment FOREIGN KEY (patient_id) REFERENCES patient(id) ON DELETE CASCADE) ENGINE=InnoDB"
 
 # Execute and close connection.
+mycursor.execute(sql)
 mycursor.execute(sql_2)
 mycursor.close()
 connection.close()
