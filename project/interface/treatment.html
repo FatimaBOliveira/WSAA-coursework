@@ -1,9 +1,20 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>View treatments</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <!-- CSS only -->
+        <!-- Bootstrap CSS https://getbootstrap.com/docs/5.3/getting-started/introduction/#quick-start-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <!-- style created based on the following references:
+        style accourding to different sections - https://www.w3schools.com/TAgs/tag_style.asp
+        - https://www.w3schools.com/html/html_css.asp
+        Font used - https://www.w3schools.com/cssref/css_websafe_fonts.php
+        cursor styling in h1 heading - https://www.w3schools.com/cssref/pr_class_cursor.php
+        border styling for h1 heading - https://www.w3schools.com/css/css_border.asp
+        table styling elements - https://getbootstrap.com/docs/5.3/customize/css-variables/
+        - https://getbootstrap.com/docs/5.3/content/tables/#css
+        -->
         <style>
             body {background-color: snow; font-family: Verdana, sans-serif;}
             h1.ex1 {color: darkblue; border-style:outset; font-size: 50px; cursor: pointer; background-color:whitesmoke}
@@ -16,7 +27,13 @@
     </head>
     <body onload="loadTreatment(); loadPatients();">
         <h1 class="ex1" onclick="showViewall()">Treatments</h1>
-        <!-- Navigation buttons -->
+        <!-- Buttons customization
+        Bootstrap button styles - https://getbootstrap.com/docs/5.3/components/buttons/
+        - https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
+        -->
+        <!-- Button to navigate to Treatments main page 
+        - https://stackoverflow.com/a/34126339
+        - https://www.w3schools.com/JS/js_window_location.asp?output=printPagePagePage-->
         <button id="goToPatient" onclick="window.location.href='/patient_i'" class="btn btn-primary btn-sm">Go to Patients</button><br/><br/>
         <div>
             <button id="button-showCreate" class="btn btn-success" onclick="showCreate()">Create a treatment</button>
@@ -28,7 +45,7 @@
         <div>
             <table class="table table-striped" id="treatmentTable">
                 <tr class="table-primary">
-                        <th>ID</th>
+                        <th>Patient Id</th>
                         <th>Date & time</th>
                         <th>Bp systolic</th>
                         <th>Bp diastolic</th>
@@ -39,9 +56,14 @@
                 </tr>
             </table>
         </div>
+        <!-- Form customization - https://getbootstrap.com/docs/5.3/customize/color/#using-the-new-colors
+        - Types of inputs - https://www.w3schools.com/tags/tag_input.asp
+        - Show calendar and time https://www.w3schools.com/tags/att_input_type_datetime-local.asp
+        - Text area - https://www.w3schools.com/tags/tag_textarea.asp
+        -->
         <div id="createUpdateForm" style="display:none" class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
             <h2 class="ex2"><span id="createLabel">Create a</span> <span id="updateLabel">Update this</span> treatment</h2>
-            Id <input type="number" name="id" min="1"><br/>
+            Patient Id <input type="number" name="id" min="1"><br/>
             Date & Time<input type="datetime-local" id="date_time" name="date_time" min="1900-01-01T00:00"><br/>
             Bp systolic <input type="number" name="bp_systolic" min="20" max="250"><br/>
             Bp diastolic <input type="number" name="bp_diastolic" min="10" max="150"><br/>
@@ -58,84 +80,80 @@
     </body>
     <script>
         function showCreate(){
-            document.getElementById("createUpdateForm").style.display = "block"
+            document.getElementById("createUpdateForm").style.display = "block"; // Show form
 
-            // Hide the patient dropdown in create mode
-            document.getElementById("patientSelect").style.display = "none";
-            document.querySelector('label[for="patientSelect"]').style.display = "none";  // Hide the label
+            
+            document.getElementById("patientSelect").style.display = "none"; // Hide the patient dropdown
+            document.querySelector('label[for="patientSelect"]').style.display = "none";  // Hide "Select a patient" label
 
-            // Show the "Go back to View All" button when in update mode
-            document.getElementById("backToViewAll").style.display = "block";
-
-            // Hide button
-            document.getElementById("goToPatient").style.display = "none";
+            document.getElementById("backToViewAll").style.display = "block"; // Show the "Go back" button when in update mode
+            document.getElementById("goToPatient").style.display = "none"; // Hide "Go to Patients" button
 
             // Ensure the date and time field is not disabled when creating
             var form = document.getElementById('createUpdateForm');
             form.querySelector('input[name="date_time"]').disabled = false;  // Enable the date_time field
             
-            document.getElementById("button-doCreate").style.display = "block"
-            document.getElementById("button-doUpdate").style.display = "none"
-            document.getElementById("createLabel").style.display = "inline"
-            document.getElementById("updateLabel").style.display = "none"
+            document.getElementById("button-doCreate").style.display = "block"; // Show "Create" button
+            document.getElementById("button-doUpdate").style.display = "none"; // Hide "Update" button
 
-            document.getElementById("button-showCreate").style.display = "none"
-            document.getElementById("treatmentTable").style.display = "none"
+            document.getElementById("createLabel").style.display = "inline"; // Show "Create a" label
+            document.getElementById("updateLabel").style.display = "none"; // Hide "Update this" label
+
+            document.getElementById("button-showCreate").style.display = "none"; // Hide "Create a Treatment" button
+
+            document.getElementById("treatmentTable").style.display = "none"; // Hide Treatment table
 
             clearForm();  // Ensure the form is cleared when creating a new treatment
         }
+
         function showUpdate(buttonElement){
-            document.getElementById("createUpdateForm").style.display = "block"
+            document.getElementById("createUpdateForm").style.display = "block";
 
-            // Hide the patient dropdown in update mode
             document.getElementById("patientSelect").style.display = "none";
-            document.querySelector('label[for="patientSelect"]').style.display = "none";  // Hide the label
+            document.querySelector('label[for="patientSelect"]').style.display = "none";
 
-            // Show the "Go back to View All" button when in update mode
             document.getElementById("backToViewAll").style.display = "block";
-
-            // Hide button
             document.getElementById("goToPatient").style.display = "none";
            
-            document.getElementById("button-doCreate").style.display = "none"
-            document.getElementById("button-doUpdate").style.display = "block"
-            document.getElementById("createLabel").style.display = "none"
-            document.getElementById("updateLabel").style.display = "inline"
+            document.getElementById("button-doCreate").style.display = "none";
+            document.getElementById("button-doUpdate").style.display = "block";
 
-            document.getElementById("button-showCreate").style.display = "none"
-            document.getElementById("treatmentTable").style.display = "none"
+            document.getElementById("createLabel").style.display = "none";
+            document.getElementById("updateLabel").style.display = "inline";
 
-            rowElement= buttonElement.parentNode.parentNode
-            treatment = getTreatmentFromRow(rowElement)
-            //console.log("updating")
-            //console.log(treatment)
-            populateFormWithTreatment(treatment)
-            
+            document.getElementById("button-showCreate").style.display = "none";
+
+            document.getElementById("treatmentTable").style.display = "none";
+
+            rowElement= buttonElement.parentNode.parentNode;
+            treatment = getTreatmentFromRow(rowElement);// Get data of the existing treatment
+
+            populateFormWithTreatment(treatment); // Fill the form with treatment data
         }
+
         function showViewall(){
-            document.getElementById("createUpdateForm").style.display = "none"
+            document.getElementById("createUpdateForm").style.display = "none";
 
-
-            // Show the patient dropdown in view-all mode
             document.getElementById("patientSelect").style.display = "block";
-            document.querySelector('label[for="patientSelect"]').style.display = "inline";  // Show the label again
+            document.querySelector('label[for="patientSelect"]').style.display = "inline";
 
-            // Clear patient selection
-            document.getElementById("patientSelect").value = "";
+            document.getElementById("patientSelect").value = ""; // Clear patient selection
 
-            // Hide the "Go back to View All" button when in View All mode
             document.getElementById("backToViewAll").style.display = "none";
            
-            document.getElementById("button-showCreate").style.display = "block"
-            document.getElementById("treatmentTable").style.display = "block"
+            document.getElementById("button-showCreate").style.display = "block";
+            document.getElementById("treatmentTable").style.display = "block";
 
             // Load all treatments
             reloadTable();
         }
+
         function clearForm(){
             var form = document.getElementById('createUpdateForm');
 
-            form.querySelector('input[name="id"]').disabled = false;
+            form.querySelector('input[name="id"]').disabled = false; // Enable the id input field
+
+            // Clear the values of all input fields
             form.querySelector('input[name="id"]').value = '';
             form.querySelector('input[name="date_time"]').value = '';
             form.querySelector('input[name="bp_systolic"]').value = '';
@@ -143,19 +161,21 @@
             form.querySelector('input[name="heart_rate"]').value = '';
             form.querySelector('textarea[name="notes"]').value = '';
         }
+
         function getTreatmentFromForm(){
-            var form = document.getElementById('createUpdateForm')
+            var form = document.getElementById('createUpdateForm');
 
-       	    var treatment= {}
-        	treatment.patient_id = form.querySelector('input[name="id"]').value
-        	treatment.date_time = form.querySelector('input[name="date_time"]').value
-        	treatment.bp_systolic = form.querySelector('input[name="bp_systolic"]').value
-            treatment.bp_diastolic = form.querySelector('input[name="bp_diastolic"]').value
-            treatment.heart_rate = form.querySelector('input[name="heart_rate"]').value
-            treatment.notes = form.querySelector('textarea[name="notes"]').value
+       	    var treatment= {};
+        	treatment.patient_id = form.querySelector('input[name="id"]').value;
+        	treatment.date_time = form.querySelector('input[name="date_time"]').value;
+        	treatment.bp_systolic = form.querySelector('input[name="bp_systolic"]').value;
+            treatment.bp_diastolic = form.querySelector('input[name="bp_diastolic"]').value;
+            treatment.heart_rate = form.querySelector('input[name="heart_rate"]').value;
+            treatment.notes = form.querySelector('textarea[name="notes"]').value;
 
-            return treatment
+            return treatment;
         }
+    
         function formatDateForDatetimeLocal(dateString) {
             // Assuming `dateString` is in a format like '2025-04-30 14:30:00'
             // Convert it to 'YYYY-MM-DDTHH:MM' format (ISO 8601 format).
@@ -386,7 +406,8 @@
             while (tableElement.rows.length > 1) {
                 tableElement.deleteRow(1);
             }
-            // Reload the page to reset everything
+            // Reload the page to reset everything, for example styles and current data
+            // https://www.linkedin.com/pulse/window-locationreload-ultimate-guide-refreshing-web-mohsin-uddjf
             window.location.reload();
             // Reload the treatments from the server
             loadTreatment();

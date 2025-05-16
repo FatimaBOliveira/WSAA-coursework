@@ -9,7 +9,7 @@ This README follows the instructions from [Github](https://docs.github.com/en/re
 This subdirectory includes:
 
 - A server Python file: The main file of this project that, when called, runs a Flask server, allowing users to view and manipulate database data in real time through HTML pages;
-- TreatmentDAO and PatientDAO: These Data Access Objects are responsible for executing database operations in MySQL, such as loading, inserting, updating, and deleting data related to treatments and patients;
+- TreatmentDAO and PatientDAO: These Data Access Objects (DAO) are responsible for executing database operations in MySQL, such as loading, inserting, updating, and deleting data related to treatments and patients;
 - Interface folder: Contains the HTML pages that display and manipulate data. Each page is composed of `<head>` and `<body>` sections for customizing the layout, along with a `<script>` section that contains JavaScript functions for handling forms, interactions, data validation, and AJAX calls to the Flask server to perform CRUD operations. The treatment HTML page also includes additional features, such as fetching treatments for a specific patient."
 - mysql folder: Contains python files that allow the creation of the database and tables, and the manipulation of data in MySQL.
 

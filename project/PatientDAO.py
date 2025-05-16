@@ -1,9 +1,14 @@
-# Patient DAO 
+# Patient DAO
+# This file is responsible for all direct executions on the MySQL "patient" table.
 # Author: Fatima Oliveira
 
+# Import library
 import mysql.connector
+
+# Import configuration file with the keys
 from dbconfig import database as db
 
+# Object constructor for handling all MySQL interactions
 class PatientDAO:
     connection=""
     cursor =''
@@ -12,12 +17,14 @@ class PatientDAO:
     password=   ''
     database=   ''
     
+    # Database configuration, using the config file. This function is always executed when the class is called.
     def __init__(self):
         self.host=       db['host']
         self.user=       db['user']
         self.password=   db['password']
         self.database=   db['database']
 
+    # Function that connects to MySQL and returns a cursor
     def getcursor(self): 
         self.connection = mysql.connector.connect(
             host=       self.host,
@@ -28,24 +35,25 @@ class PatientDAO:
         self.cursor = self.connection.cursor()
         return self.cursor
 
+    # Close the MySQL connection and cursor
     def closeAll(self):
         self.connection.close()
         self.cursor.close()
-         
+
+    # Get all patients from the table   
     def getAll(self):
         cursor = self.getcursor()
         sql="SELECT * from patient"
         cursor.execute(sql)
         results = cursor.fetchall()
         returnArray = []
-        #print(results)
         for result in results:
-            #print(result)
             returnArray.append(self.convertToDictionary(result))
         
         self.closeAll()
         return returnArray
 
+    # Returns a specific patient by ID
     def findByID(self, id):
         cursor = self.getcursor()
         sql = "SELECT * FROM patient WHERE id = %s"
@@ -61,6 +69,7 @@ class PatientDAO:
         self.closeAll()
         return returnvalue
     
+    # Create a new patient
     def create(self, patient):
         cursor = self.getcursor()
         sql = "INSERT INTO patient (id, name, age, type_of_treatment) VALUES (%s, %s, %s, %s)"
@@ -68,12 +77,10 @@ class PatientDAO:
         cursor.execute(sql, values)
 
         self.connection.commit()
-        #newid = cursor.lastrowid
-        #patient["id"] = newid
         self.closeAll()
         return patient
 
-
+    # Update patient
     def update(self, id, patient):
         cursor = self.getcursor()
         sql = "UPDATE patient SET name= %s, age=%s, type_of_treatment=%s WHERE id=%s"
@@ -83,6 +90,7 @@ class PatientDAO:
         self.connection.commit()
         self.closeAll()
         
+    # Delete patient by ID
     def delete(self, id):
         cursor = self.getcursor()
         sql = "DELETE FROM patient WHERE id = %s"
@@ -90,6 +98,8 @@ class PatientDAO:
         cursor.execute(sql, values)
 
         if cursor.rowcount == 0:  # Check if no rows were affected
+            print("No patient found to delete.")
+            self.closeAll()
             return None
         
         self.connection.commit()
@@ -98,7 +108,7 @@ class PatientDAO:
         print("Delete done")
         return True
 
-
+    # Converts a tuple result into a dictionary with patient attributes
     def convertToDictionary(self, resultLine):
         attkeys = ["id", "name", "age", "type_of_treatment"]
         patient = {}
@@ -108,5 +118,5 @@ class PatientDAO:
             currentkey = currentkey + 1 
         return patient
 
-        
+# Create a patientDAO object to be used in other files
 patientDAO = PatientDAO()
