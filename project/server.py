@@ -115,10 +115,6 @@ def getall_tx():
 # curl http://127.0.0.1:5000/treatment/1
 @app.route('/treatment/<int:patient_id>', methods=['GET'])
 def findbyid_tx(patient_id):
-                # First, check if patient exists using patientDAO
-                ##patient = patientDAO.findByID(patient_id)
-                ##if not patient:
-                ##    abort(404, description="Patient not found")
     treatment = treatmentDAO.findByID(patient_id)  # Query the DAO
     if not treatment:  # Check if the patient exists
         abort(404, description="Patient not found")
