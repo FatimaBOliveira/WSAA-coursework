@@ -91,7 +91,7 @@ class TreatmentDAO:
         sql = ("""
             UPDATE treatment
             SET bp_systolic = %s, bp_diastolic = %s, heart_rate = %s, notes = %s
-            WHERE patient_id = %s AND date_time LIKE %s;
+            WHERE patient_id = %s AND date_time = %s;
             """)
 
         print(f"Update treatment {treatment}")

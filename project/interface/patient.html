@@ -140,6 +140,7 @@
         function getPatientFromForm(){
             var form = document.getElementById('createUpdateForm');
 
+            // Get patient data
        	    var patient = {};
         	patient.id = form.querySelector('input[name="id"]').value;
         	patient.name = form.querySelector('input[name="name"]').value;
@@ -156,139 +157,163 @@
 
         function populateFormWithPatient(patient){
        		var form = document.getElementById('createUpdateForm');
-        	form.querySelector('input[name="id"]').disabled = true;
+
+        	form.querySelector('input[name="id"]').disabled = true; // Disable the "id" field to prevent editing
        		form.querySelector('input[name="id"]').value  = patient.id;
        		form.querySelector('input[name="name"]').value= patient.name;
         	form.querySelector('input[name="age"]').value= patient.age;
-            var selectedTreatment = form.querySelector(`input[name="type_of_treatment"][value="${patient.type_of_treatment}"]`);
+
+             // Select the radio input that matches the type of treatment. Associates the name, "type_of_treatment", to value in radio buttons
+            var selectedTreatment = form.querySelector(`input[name="type_of_treatment"][value="${patient.type_of_treatment}"]`); // Code based on ChatGPT
             if (selectedTreatment) {
-                selectedTreatment.checked = true;
-            };
+                selectedTreatment.checked = true; // Verifies which option is selected
+            }
         }
 
         function addPatientToTable(patient){
-            var tableElement = document.getElementById('patientTable')
-            var rowElement = tableElement.insertRow(-1)
+            var tableElement = document.getElementById('patientTable');
+            var rowElement = tableElement.insertRow(-1); // Add a new row at the end of the table
             
-            rowElement.setAttribute('id',patient.id)
+            rowElement.setAttribute('id',patient.id); // Set the row ID using the patient id
             
+            // Insert and fill cells with patient data
             var cell1 = rowElement.insertCell(0);
-            cell1.innerHTML = patient.id
+            cell1.innerHTML = patient.id;
             var cell2 = rowElement.insertCell(1);
-            cell2.innerHTML = patient.name
+            cell2.innerHTML = patient.name;
             var cell3 = rowElement.insertCell(2);
-            cell3.innerHTML = patient.age
+            cell3.innerHTML = patient.age;
             var cell4 = rowElement.insertCell(3);
-            cell4.innerHTML = patient.type_of_treatment
-            var cell5 = rowElement.insertCell(4);
-            cell5.innerHTML = '<button onclick="showUpdate(this)" class="btn btn-info">Update</button>'
-            var cell6 = rowElement.insertCell(5);
-            cell6.innerHTML = '<button onclick=doDelete(this) class="btn btn-danger">Delete</button>'
+            cell4.innerHTML = patient.type_of_treatment;
+            var cell5 = rowElement.insertCell(4); // Add Update button
+            cell5.innerHTML = '<button onclick="showUpdate(this)" class="btn btn-info">Update</button>';
+            var cell6 = rowElement.insertCell(5); // Add Delete button
+            cell6.innerHTML = '<button onclick="doDelete(this)" class="btn btn-danger">Delete</button>';
 
         }
+
         function getPatientFromRow(rowElement){
-            var patient ={}
-            patient.id  = rowElement.cells[0].firstChild.textContent
-            patient.name = rowElement.cells[1].firstChild.textContent
-            patient.age = rowElement.cells[2].firstChild.textContent
-            patient.type_of_treatment = rowElement.cells[3].firstChild.textContent
-            return patient
+            // Get cells with patient data
+            var patient ={};
+            patient.id  = rowElement.cells[0].firstChild.textContent;
+            patient.name = rowElement.cells[1].firstChild.textContent;
+            patient.age = rowElement.cells[2].firstChild.textContent;
+            patient.type_of_treatment = rowElement.cells[3].firstChild.textContent;
+            return patient;
         }
+
         function setPatientInRow(rowElement, patient){
-            rowElement.cells[0].firstChild.textContent= patient.id  
-            rowElement.cells[1].firstChild.textContent= patient.name
-            rowElement.cells[2].firstChild.textContent= patient.age
-            rowElement.cells[3].firstChild.textContent= patient.type_of_treatment   
+            // Update the table row cells with patient data
+            rowElement.cells[0].firstChild.textContent= patient.id;
+            rowElement.cells[1].firstChild.textContent= patient.name;
+            rowElement.cells[2].firstChild.textContent= patient.age;
+            rowElement.cells[3].firstChild.textContent= patient.type_of_treatment;   
         }
 
         function doCreate(){
-            console.log("creating a patient")
+            console.log("creating a patient");
+
+            // Validate form inputs. If invalid, abort creation
             if (!validateForm()) {
                 console.log("Incomplete data. Create aborted.");
                 return;
             }
-            patient = getPatientFromForm()
 
+            // Extract patient data from the form fields
+            var patient = getPatientFromForm();
+            // Send patient data to create the record
             createPatient(patient, function(result) {
-                addPatientToTable(patient); // use what was input in the form
-                console.log("Patient created successfully:", result)
+                addPatientToTable(patient); // Add patient to table using form input
+                console.log("Patient created successfully:", result);
+            });
 
-            })
-            showViewall()
-            clearForm()
+            showViewall(); // Go back to view all patients
+            clearForm(); // Clear the form for the next input
         }
 
         function doUpdate() {
             console.log("Updating a patient");
+
+            // Validate form inputs. If invalid, abort update
             if (!validateForm()) {
                 console.log("Incomplete data. Update aborted.");
                 return;
             }
-        
+
+            // Extract patient data from the form fields
             var patient = getPatientFromForm();
-        
+            // Send updated patient data to the server
             updatePatient(patient, function(result) {
                 console.log("Patient updated successfully:", result);
-            
+                // Find the corresponding table row by patient id
                 var rowElement = document.getElementById(patient.id);
                 if (rowElement) {
-                    setPatientInRow(rowElement, patient); // use original data to update table
+                    setPatientInRow(rowElement, patient); // Update table row with new data
                 }
             });
-            clearForm(); // reset the form
-            showViewall(); // switch back to table view
+            clearForm(); // reset the form for the next input
+            showViewall(); // Go back to view all patients
         }
 
         function doDelete(buttonElement){
-            console.log("in delete")
-            var rowElement = buttonElement.parentNode.parentNode; // Row containing the delete button
-            var patientId = rowElement.id; // Retrieve the patient ID from the row's ID attribute
+            console.log("in delete");
+            var rowElement = buttonElement.parentNode.parentNode; // Row containing the clicked delete button
+            var patientId = rowElement.id; // Retrieve the patient id from the row's ID attribute
 
+            // Call the server to delete the patient record
             deletePatient(patientId, function(result) {
                 console.log("Patient deleted successfully:", result.message);
-                var tableElement = document.getElementById('patientTable')
+                // Get the table element
+                var tableElement = document.getElementById('patientTable');
+                // Find the row index of the patient to delete
                 var index = buttonElement.parentNode.parentNode.rowIndex;
                 tableElement.deleteRow(index); // Remove the row from the table upon successful deletion
             });
         }
 
         function validateForm() {
+            // Get the form
             var form = document.getElementById('createUpdateForm');
+
+            // Retrieve values from form inputs
             var id = form.querySelector('input[name="id"]').value;
             var name = form.querySelector('input[name="name"]').value;
             var age = form.querySelector('input[name="age"]').value;
             var typeOfTreatment = form.querySelector('input[name="type_of_treatment"]:checked');
 
+            // Check if any required field is missing
             if (!id || !name || !age || !typeOfTreatment) {
                 alert("All fields are required!");
-                return false;
+                return false; // Validation failed
             }
-            return true;
+            return true; // All required fields are present, form is valid
         }
-        //-----------------------------------------------------------------------------------------------//
-        // AJAX CALLS
 
-        function getAll(callback) {
-            $.ajax({
-                "url": "http://127.0.0.1:5000/patient",
-                "method": "GET",
-                "data": "",
-                "dataType": "JSON",
-                "success": function(result) {
-                    console.log("Fetched patients:", result); // Log data for debugging
-                    callback(result); // Pass the fetched data to the callback
-                },
-                "error": function(xhr, status, error) {
-                    console.log("Error: " + status + " msg: " + error);
-                }
-            });
-        }
         // Fetch all patients from the server and populate the table
         function loadPatients() {
             getAll(function (patients) {
                 console.log("Fetched patients:", patients); // Debugging
                 for (var patient of patients) {
-                    addPatientToTable(patient); // Add each patient to the table
+                    addPatientToTable(patient); // Display each patient in the table
+                }
+            });
+        }
+
+        //-----------------------------------------------------------------------------------------------//
+        // AJAX CALLS
+
+        function getAll(callback) {
+            $.ajax({
+                "url": "http://127.0.0.1:5000/patient", // API endpoint
+                "method": "GET", // Use GET method to load patients
+                "data": "",
+                "dataType": "JSON", // Expect JSON response from server
+                "success": function(result) {
+                    console.log("Fetched patients:", result); // Log data for debugging
+                    callback(result); // Pass the fetched data to the callback
+                },
+                "error": function(xhr, status, error) {
+                    console.log("Error: " + status + " msg: " + error); // Log error details
                 }
             });
         }
@@ -298,9 +323,9 @@
             $.ajax({
                 "url": "http://127.0.0.1:5000/patient",
                 "method": "POST",
-                "data": JSON.stringify(patient),
+                "data": JSON.stringify(patient), // Convert patient object to JSON string for sending data
                 "dataType": "JSON",
-                contentType: "application/json; charset=utf-8",
+                contentType: "application/json; charset=utf-8", // Specify JSON content type for the request
                 "success": function(result) {
                     console.log(result);
                     callback(result);  
@@ -310,10 +335,11 @@
                 }
             });
         }
+
         function updatePatient(patient, callback) {
             console.log("Updating: " + JSON.stringify(patient));
             $.ajax({
-                "url": "http://127.0.0.1:5000/patient/" + encodeURI(patient.id),
+                "url": "http://127.0.0.1:5000/patient/" + encodeURI(patient.id), // API endpoint with specific patient id for update
                 "method": "PUT",
                 "data": JSON.stringify(patient),
                 "dataType": "JSON",
@@ -327,9 +353,10 @@
                 }
             });
         }
+
         function deletePatient(id, callback) {
             $.ajax({
-                "url": "http://127.0.0.1:5000/patient/" + id,
+                "url": "http://127.0.0.1:5000/patient/" + encodeURI(id), // API endpoint with specific patient id to delete
                 "method": "DELETE",
                 "data": "",
                 "dataType": "JSON",

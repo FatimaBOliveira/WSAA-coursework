@@ -115,6 +115,10 @@ def getall_tx():
 # curl http://127.0.0.1:5000/treatment/1
 @app.route('/treatment/<int:patient_id>', methods=['GET'])
 def findbyid_tx(patient_id):
+                # First, check if patient exists using patientDAO
+                ##patient = patientDAO.findByID(patient_id)
+                ##if not patient:
+                ##    abort(404, description="Patient not found")
     treatment = treatmentDAO.findByID(patient_id)  # Query the DAO
     if not treatment:  # Check if the patient exists
         abort(404, description="Patient not found")
@@ -126,6 +130,7 @@ def findbyid_tx(patient_id):
 def create_tx():
         # Read JSON data from the request body
         jsonstring = request.json
+
         treatment = {}
 
         if "patient_id" not in jsonstring:
@@ -166,15 +171,6 @@ def update_tx(patient_id, date_time):
         if not existing_patient:
             return jsonify({"error": f"Patient with ID {patient_id} not found."}), 404
         
-        try:
-                # Parse date_time from URL (expected format: 'YYYY-MM-DD HH:MM')
-                # Convert the date_time string into a datetime object to match MySQL timestamp format
-                parsed_time = datetime.strptime(date_time, '%Y-%m-%d %H:%M') # https://www.geeksforgeeks.org/python-datetime-strptime-function/
-                # Format to include seconds for MySQL query
-                date_time_str = parsed_time.strftime('%Y-%m-%d %H:%M:%S')
-        except ValueError:
-              return jsonify({"error": "Invalid date_time format. Use 'YYYY-MM-DD HH:MM'"}), 400
-        
         if "bp_systolic" not in jsonstring:
                 abort(400)
         treatment["bp_systolic"] = jsonstring["bp_systolic"]
@@ -187,8 +183,23 @@ def update_tx(patient_id, date_time):
         if "notes" not in jsonstring:
                 abort(400)
         treatment["notes"] = jsonstring["notes"]
-       
-        return jsonify(treatmentDAO.update(patient_id, date_time_str, treatment))
+        
+        try:
+                # Parse date_time from URL (expected format: 'YYYY-MM-DD HH:MM')
+                # Convert the date_time string into a datetime object to match MySQL timestamp format
+                parsed_time = datetime.strptime(date_time, '%Y-%m-%d %H:%M') # https://www.geeksforgeeks.org/python-datetime-strptime-function/
+                # Format to include seconds for MySQL query
+                date_time_str = parsed_time.strftime('%Y-%m-%d %H:%M:%S')
+        except ValueError:
+              return jsonify({"error": "Invalid date_time format. Use 'YYYY-MM-DD HH:MM'"}), 400
+        
+        try:
+                updated = treatmentDAO.update(patient_id, date_time_str, treatment)
+        except Exception as e:
+            # Optional: log the error e
+            return jsonify({"error": "Internal server error during update"}), 500
+        return jsonify(updated)
+        #return jsonify(treatmentDAO.update(patient_id, date_time_str, treatment))
 
 # Delete a treatment
 # curl -X DELETE  "http://127.0.0.1:5000/treatment/1/2025-04-17%2010:10"
