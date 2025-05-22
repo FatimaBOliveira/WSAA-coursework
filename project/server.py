@@ -190,12 +190,12 @@ def update_tx(patient_id, date_time):
               return jsonify({"error": "Invalid date_time format. Use 'YYYY-MM-DD HH:MM'"}), 400
         
         try:
-                updated = treatmentDAO.update(patient_id, date_time_str, treatment)
+                updated = treatmentDAO.update(patient_id, date_time_str, treatment) # Perform update
         except Exception as e:
-            # Optional: log the error e
-            return jsonify({"error": "Internal server error during update"}), 500
+                # log the error for debugging
+                print(f"Update failed: {e}")
+                return jsonify({"error": "Internal server error during update"}), 500
         return jsonify(updated)
-        #return jsonify(treatmentDAO.update(patient_id, date_time_str, treatment))
 
 # Delete a treatment
 # curl -X DELETE  "http://127.0.0.1:5000/treatment/1/2025-04-17%2010:10"
