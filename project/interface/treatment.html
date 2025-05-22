@@ -420,7 +420,7 @@
             // Loop through each option in the select dropdown
             for (let option of select.options) { // Code based on https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/options
                 console.log("Dropdown Patient ID:", option.value.trim());  // Log available Ids
-                if (option.value.trim() === id.trim()) { // If the option's value matches the given patient id, return true. Code based on https://www.w3schools.com/js/js_comparisons.asp
+                if (option.value.trim() === id.trim()); { // If the option's value matches the given patient id, return true. Code based on https://www.w3schools.com/js/js_comparisons.asp
                     return true;
                 }
             }
