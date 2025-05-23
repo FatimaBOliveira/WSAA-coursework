@@ -27,13 +27,15 @@
     </head>
     <body onload="loadTreatment(); loadPatients();">
         <h1 class="ex1" onclick="showViewall()">Treatments</h1>
-        <!-- Buttons customization
-        Bootstrap button styles - https://getbootstrap.com/docs/5.3/components/buttons/
+        <!-- Buttons customization, with Bootstrap styles:
+        - https://getbootstrap.com/docs/5.3/components/buttons/
         - https://www.w3schools.com/bootstrap/bootstrap_buttons.asp
-        -->
-        <!-- Button to navigate to Treatments main page 
+        Button to navigate to Treatments main page:
         - https://stackoverflow.com/a/34126339
-        - https://www.w3schools.com/JS/js_window_location.asp?output=printPagePagePage-->
+        - https://www.w3schools.com/JS/js_window_location.asp?output=printPagePagePage
+        Dropdown style:
+        - https://getbootstrap.com/docs/4.0/components/dropdowns/
+        -->
         <button id="goToPatient" onclick="window.location.href='/patient_i'" class="btn btn-primary btn-sm">Go to Patients</button><br/><br/>
         <div>
             <button id="button-showCreate" class="btn btn-success" onclick="showCreate()">Create a treatment</button>

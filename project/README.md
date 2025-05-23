@@ -49,11 +49,11 @@ The [requirements.txt](https://github.com/FatimaBOliveira/Programming-for-data-a
 
 The project runs when server.py is executed, then it can be accessed through web browser at the [localhost](https://dev.to/richardshaju/what-is-localhost-in-development-mode-2ecn) port 5000, http://127.0.0.1:5000. All the [endpoints](https://blog.postman.com/what-is-an-api-endpoint/) are defined in the server.py, and most of them return a JSON-formatted data, while the last two use the HTML pages incorporated. 
 
-All the files in this subdirectory are crucial elements for the users to deploy this project, as these are inter-connected. Additionally, before running the project, please create your own configure file with your MySQL credentials. Also, the database and the tables must be created first before trying to do CRUD operations. These can be set manually in MySQL or through running the python files that are found in mysql folder.
+All the files in this subdirectory are crucial elements for the users to deploy this project, as these are inter-connected. Additionally, before running the project, please create your own configuration file with your MySQL credentials. Also, the database and the tables must be created first before trying to do CRUD operations. These can be set manually in MySQL or through running the python files that are found in mysql folder.
 
 Also, users need the programs listed above, and ensure that all dependencies are installed. 
 
-To avoid any other issues, please ensure that no other application is using localhost port 5000, that MySQL is running, and all files are in the correct directory structure as they are organized here.
+To avoid any other issues, please ensure that no other application is using localhost port 5000, that MySQL is running on your machine, and all files are in the correct directory structure as they are organized here.
 
 ## Get help
 
